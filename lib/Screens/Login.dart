@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
@@ -12,7 +13,9 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text("Login")),
+        elevation: 0,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
+        backgroundColor: Colors.white,
       ),
     );
   }
