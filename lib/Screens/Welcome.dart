@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/parser.dart';
-import 'package:teamzone/Screens/Login.dart';
+import 'package:teamzone/Screens/ClientLogin.dart';
+import 'ManagerLogin.dart';
 
 class Welcome extends StatefulWidget {
   const Welcome({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class _WelcomeState extends State<Welcome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(87, 111, 136, 0.7),
+      backgroundColor: const Color.fromRGBO(155, 89, 182, 0.7),
       // ignore: sized_box_for_whitespace
       body: SafeArea(
         // ignore: sized_box_for_whitespace
@@ -80,23 +81,23 @@ class _WelcomeState extends State<Welcome> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
                           border: const Border(
-                            bottom: BorderSide(color: Colors.black),
-                            left: BorderSide(color: Colors.black),
-                            right: BorderSide(color: Colors.black),
-                            top: BorderSide(color: Colors.black),
+                            bottom: BorderSide(color: Colors.white),
+                            left: BorderSide(color: Colors.white),
+                            right: BorderSide(color: Colors.white),
+                            top: BorderSide(color: Colors.white),
                           ),
                         ),
                         child: MaterialButton(
                           minWidth: double.infinity,
                           height: 60,
-                          color: const Color.fromRGBO(236, 240, 241, .7),
+                          color: const Color.fromRGBO(49, 39, 79, .9),
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50)),
                           child: const Text(
                             'Manager',
                             style: TextStyle(
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w900,
                                 fontSize: 16),
                           ),
@@ -116,27 +117,33 @@ class _WelcomeState extends State<Welcome> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
                           border: const Border(
-                            bottom: BorderSide(color: Colors.black),
-                            left: BorderSide(color: Colors.black),
-                            right: BorderSide(color: Colors.black),
-                            top: BorderSide(color: Colors.black),
+                            bottom: BorderSide(color: Colors.white),
+                            left: BorderSide(color: Colors.white),
+                            right: BorderSide(color: Colors.white),
+                            top: BorderSide(color: Colors.white),
                           ),
                         ),
                         child: MaterialButton(
                           minWidth: double.infinity,
                           height: 60,
-                          color: const Color.fromRGBO(236, 240, 241, .7),
+                          color: const Color.fromRGBO(49, 39, 79, .9),
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50)),
                           child: const Text(
                             'Client',
                             style: TextStyle(
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w900,
                                 fontSize: 16),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Clientlogin()),
+                            );
+                          },
                         ),
                       )
                     ],
