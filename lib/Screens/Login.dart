@@ -16,6 +16,17 @@ class _LoginState extends State<Login> {
         elevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle.light,
         backgroundColor: Colors.white,
+        leading: IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.arrow_back),
+          color: Colors.black,
+        ),
+      ),
+      body: Container(
+        color: Colors.white,
+        child: Column(
+          children: <Widget>[Center(child: Text('welcome'))],
+        ),
       ),
     );
   }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/parser.dart';
+import 'package:teamzone/Screens/Login.dart';
 
 class Welcome extends StatefulWidget {
   const Welcome({Key? key}) : super(key: key);
@@ -51,21 +53,27 @@ class _WelcomeState extends State<Welcome> {
               ),
               //------------------------------------------
               Container(
-                height: 400,
+                height: 450,
                 width: MediaQuery.of(context).size.height - 40,
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 decoration: BoxDecoration(
-                    color: const Color.fromRGBO(252, 243, 207, 1),
-                    borderRadius: BorderRadius.circular(25),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          blurRadius: 10,
-                          spreadRadius: 1),
-                    ]),
+                  color: const Color.fromRGBO(252, 243, 207, 1),
+                  borderRadius: BorderRadius.circular(25),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 10,
+                        spreadRadius: 1),
+                  ],
+                  image: const DecorationImage(
+                    image: AssetImage("lib/assets/images/welcomeScreen2.png"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
                 child: Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 90),
+                      //const EdgeInsets.symmetric(horizontal: 50, vertical: 120),
+                      EdgeInsets.only(top: 240, left: 50, right: 50),
                   child: Column(
                     children: <Widget>[
                       Container(
@@ -81,7 +89,7 @@ class _WelcomeState extends State<Welcome> {
                         child: MaterialButton(
                           minWidth: double.infinity,
                           height: 60,
-                          color: const Color.fromRGBO(236, 240, 241, 1),
+                          color: const Color.fromRGBO(236, 240, 241, .7),
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50)),
@@ -89,10 +97,15 @@ class _WelcomeState extends State<Welcome> {
                             'Manager',
                             style: TextStyle(
                                 color: Colors.black,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w900,
                                 fontSize: 16),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Login()),
+                            );
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -112,7 +125,7 @@ class _WelcomeState extends State<Welcome> {
                         child: MaterialButton(
                           minWidth: double.infinity,
                           height: 60,
-                          color: const Color.fromRGBO(236, 240, 241, 1),
+                          color: const Color.fromRGBO(236, 240, 241, .7),
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50)),
@@ -120,7 +133,7 @@ class _WelcomeState extends State<Welcome> {
                             'Client',
                             style: TextStyle(
                                 color: Colors.black,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w900,
                                 fontSize: 16),
                           ),
                           onPressed: () {},
