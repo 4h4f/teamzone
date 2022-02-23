@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:teamzone/Screens/DiscoverProjects.dart';
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
@@ -131,7 +132,13 @@ class _LoginState extends State<Login> {
                             fontWeight: FontWeight.w500,
                             fontSize: 16),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DiscoverProjects()),
+                        );
+                      },
                     ),
                   ),
                 ],
