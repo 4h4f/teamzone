@@ -7,10 +7,10 @@ class OverallState extends StatefulWidget {
   OverallState({Key? key}) : super(key: key);
 
   @override
-  _CurrentStateState createState() => _CurrentStateState();
+  _OverallStateState createState() => _OverallStateState();
 }
 
-class _CurrentStateState extends State<OverallState> {
+class _OverallStateState extends State<OverallState> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -21,7 +21,7 @@ class _CurrentStateState extends State<OverallState> {
           child: Column(
             children: <Widget>[
               Container(
-                height: 200,
+                height: 170,
                 padding: const EdgeInsets.all(20),
                 decoration: const BoxDecoration(
                   color: Color.fromRGBO(52, 130, 197, 1),
@@ -220,95 +220,70 @@ class _CurrentStateState extends State<OverallState> {
                     const SizedBox(
                       height: 30,
                     ),
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          height: 170,
-                          width: 150,
-                          padding: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                              color: const Color.fromRGBO(52, 130, 197, 1),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(20),
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: Offset(0, 0),
+                    Container(
+                      height: 170,
+                      width: 150,
+                      padding: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          color: const Color.fromRGBO(52, 130, 197, 1),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: Offset(0, 0),
+                            ),
+                          ]),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: const <Widget>[
+                                Icon(
+                                  Icons.error_outline,
+                                  color: Color.fromRGBO(225, 53, 53, .8),
+                                  size: 30,
                                 ),
-                              ]),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 5),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: const <Widget>[
-                                    Icon(
-                                      Icons.error_outline,
-                                      color: Color.fromRGBO(225, 53, 53, .8),
-                                      size: 30,
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text(
-                                      "FAILED TASKS",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 8,
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                  ],
+                                SizedBox(
+                                  width: 5,
                                 ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                CircularPercentIndicator(
-                                  radius: 50,
-                                  lineWidth: 12.0,
-                                  backgroundColor: Colors.white,
-                                  percent: 0.4,
-                                  progressColor:
-                                      const Color.fromRGBO(225, 53, 53, .8),
-                                  circularStrokeCap: CircularStrokeCap.round,
-                                  animation: true,
-                                  center: const Text(
-                                    '8/10',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
+                                Text(
+                                  "FAILED TASKS",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 8,
+                                      fontWeight: FontWeight.bold),
+                                )
                               ],
                             ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        Container(
-                          height: 170,
-                          width: 150,
-                          padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                              color: const Color.fromRGBO(52, 130, 197, 1),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(20),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            CircularPercentIndicator(
+                              radius: 50,
+                              lineWidth: 12.0,
+                              backgroundColor: Colors.white,
+                              percent: 0.4,
+                              progressColor:
+                                  const Color.fromRGBO(225, 53, 53, .8),
+                              circularStrokeCap: CircularStrokeCap.round,
+                              animation: true,
+                              center: const Text(
+                                '8/10',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold),
                               ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ]),
+                            ),
+                          ],
                         ),
-                      ],
-                    )
+                      ),
+                    ),
                   ],
                 ),
               ),

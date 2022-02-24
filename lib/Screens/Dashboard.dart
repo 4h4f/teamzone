@@ -12,7 +12,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  int index = 1;
+  int index = 0;
   @override
   Widget build(BuildContext context) {
     final screens = [

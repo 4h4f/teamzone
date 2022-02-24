@@ -121,14 +121,14 @@ class _DiscoverProjectsState extends State<DiscoverProjects> {
                               onPressed: () {
                                 print(projectnames[index]);
                               },
-                              style: NeumorphicStyle(
+                              style: const NeumorphicStyle(
                                 shape: NeumorphicShape.flat,
                                 lightSource: LightSource.bottomRight,
                                 boxShape: NeumorphicBoxShape.circle(),
                                 color: Colors.white,
                                 depth: .1,
                               ),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.navigate_next,
                                 color: Colors.black,
                                 size: 25,
