@@ -80,15 +80,15 @@ class _CurrentStateState extends State<CurrentState> {
               ),
               Container(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                 child: Column(
                   children: <Widget>[
                     Row(
                       children: <Widget>[
                         Container(
-                          height: 150,
+                          height: 170,
                           width: 150,
-                          padding: const EdgeInsets.all(20),
+                          padding: const EdgeInsets.all(5),
                           decoration: BoxDecoration(
                               color: const Color.fromRGBO(52, 130, 197, 1),
                               borderRadius: const BorderRadius.all(
@@ -102,14 +102,59 @@ class _CurrentStateState extends State<CurrentState> {
                                   offset: const Offset(0, 0),
                                 ),
                               ]),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 5),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.done,
+                                      color: Colors.amber[200],
+                                      size: 30,
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    const Text(
+                                      "ON HOLD TASKS",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 8,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                CircularPercentIndicator(
+                                  radius: 50,
+                                  lineWidth: 12.0,
+                                  backgroundColor: Colors.white,
+                                  percent: 0.4,
+                                  progressColor: Colors.amber[200],
+                                  circularStrokeCap: CircularStrokeCap.round,
+                                  animation: true,
+                                  center: const Text(
+                                    '1/10',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                         const SizedBox(
                           width: 20,
                         ),
                         Container(
-                          height: 150,
+                          height: 170,
                           width: 150,
-                          padding: const EdgeInsets.all(20),
+                          padding: const EdgeInsets.all(5),
                           decoration: BoxDecoration(
                               color: const Color.fromRGBO(52, 130, 197, 1),
                               borderRadius: const BorderRadius.all(
@@ -123,6 +168,52 @@ class _CurrentStateState extends State<CurrentState> {
                                   offset: const Offset(0, 3),
                                 ),
                               ]),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 5),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: const <Widget>[
+                                    Icon(
+                                      Icons.workspaces,
+                                      color: Color.fromRGBO(34, 219, 63, 1),
+                                      size: 30,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      "IN PROGRESS TASKS",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 8,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                CircularPercentIndicator(
+                                  radius: 50,
+                                  lineWidth: 12.0,
+                                  backgroundColor: Colors.white,
+                                  percent: 0.4,
+                                  progressColor:
+                                      const Color.fromRGBO(34, 219, 63, 1),
+                                  circularStrokeCap: CircularStrokeCap.round,
+                                  animation: true,
+                                  center: const Text(
+                                    '8/10',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -132,9 +223,9 @@ class _CurrentStateState extends State<CurrentState> {
                     Row(
                       children: <Widget>[
                         Container(
-                          height: 150,
+                          height: 170,
                           width: 150,
-                          padding: const EdgeInsets.all(20),
+                          padding: const EdgeInsets.all(5),
                           decoration: BoxDecoration(
                               color: const Color.fromRGBO(52, 130, 197, 1),
                               borderRadius: const BorderRadius.all(
@@ -148,12 +239,58 @@ class _CurrentStateState extends State<CurrentState> {
                                   offset: Offset(0, 0),
                                 ),
                               ]),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 5),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: const <Widget>[
+                                    Icon(
+                                      Icons.error_outline,
+                                      color: Color.fromRGBO(225, 53, 53, .8),
+                                      size: 30,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      "FAILED TASKS",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 8,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                CircularPercentIndicator(
+                                  radius: 50,
+                                  lineWidth: 12.0,
+                                  backgroundColor: Colors.white,
+                                  percent: 0.4,
+                                  progressColor:
+                                      const Color.fromRGBO(225, 53, 53, .8),
+                                  circularStrokeCap: CircularStrokeCap.round,
+                                  animation: true,
+                                  center: const Text(
+                                    '8/10',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                         const SizedBox(
                           width: 20,
                         ),
                         Container(
-                          height: 150,
+                          height: 170,
                           width: 150,
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
