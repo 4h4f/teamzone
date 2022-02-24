@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:teamzone/assets/theams/theam.dart';
 import 'package:teamzone/component/circle_progress.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class CurrentState extends StatefulWidget {
   CurrentState({Key? key}) : super(key: key);
@@ -12,71 +13,202 @@ class CurrentState extends StatefulWidget {
 class _CurrentStateState extends State<CurrentState> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Container(
-            width: double.infinity,
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 0,
-                    horizontal: 20,
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: size.width / 2 - 20,
-                        child: Column(
-                          children: [
-                            CustomPaint(
-                              foregroundPainter: CircleProgress(),
-                              child: SizedBox(
-                                width: 107,
-                                height: 107,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      '235',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      'REACH',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(Icons.analytics_outlined),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
+          child: Column(
+            children: <Widget>[
+              Container(
+                height: 200,
+                padding: const EdgeInsets.all(20),
+                decoration: const BoxDecoration(
+                  color: Color.fromRGBO(52, 130, 197, 1),
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(30)),
+                ),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Column(
+                          children: const [
+                            Text(
+                              'Project Status',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25.0,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              'Overall Project Progress',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold),
                             )
                           ],
                         ),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        CircularPercentIndicator(
+                          radius: 60,
+                          lineWidth: 12.0,
+                          backgroundColor: Colors.white,
+                          percent: 0.6,
+                          progressColor: const Color.fromRGBO(79, 168, 244, .8),
+                          circularStrokeCap: CircularStrokeCap.round,
+                          animation: true,
+                          center: const Text(
+                            '70%',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          height: 150,
+                          width: 150,
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                              color: const Color.fromRGBO(52, 130, 197, 1),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: const Offset(0, 0),
+                                ),
+                              ]),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Container(
+                          height: 150,
+                          width: 150,
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                              color: const Color.fromRGBO(52, 130, 197, 1),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ]),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          height: 150,
+                          width: 150,
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                              color: const Color.fromRGBO(52, 130, 197, 1),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: Offset(0, 0),
+                                ),
+                              ]),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Container(
+                          height: 150,
+                          width: 150,
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                              color: const Color.fromRGBO(52, 130, 197, 1),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ]),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
+
+  /* SliverToBoxAdapter _buildHeader(double screenHeight) {
+    return SliverToBoxAdapter(
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Color.fromRGBO(52, 130, 197, 1),
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(20)),
+        ),
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                const Text(
+                  'Project Status',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.bold),
+                ),
+                CircularPercentIndicator(radius: 50)
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }*/
 }

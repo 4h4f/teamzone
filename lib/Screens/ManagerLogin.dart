@@ -1,6 +1,11 @@
+import 'dart:convert';
+import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:teamzone/Screens/DiscoverProjects.dart';
+import 'package:http/http.dart' as http;
+import 'package:teamzone/Models/UserModels.dart';
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
@@ -9,12 +14,63 @@ class Login extends StatefulWidget {
   _LoginState createState() => _LoginState();
 }
 
+Future<user> createAlbum() async {
+  final response = await http.post(
+    Uri.parse('http://137.184.88.117/api/users/admin/login'),
+    headers: <String, String>{
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: jsonEncode(<String, String>{
+      'username': 'Chadrick Friesen',
+      'password': 'password'
+    }),
+  );
+  print(response.statusCode);
+  if (response.statusCode == 200) {
+    print(response.body);
+    return user.fromJson(jsonDecode(response.body));
+  } else {
+    print(response.body);
+    throw Exception('Failed to 404');
+  }
+}
+
+class data {
+  // var users;
+  final String username;
+  final String emial;
+  final int id;
+  data({required this.emial, required this.username, required this.id});
+
+  factory data.fromJson(Map<String, dynamic> json) {
+    return data(
+      //users: json['data'],
+      username: json['username'],
+      emial: json['email'],
+      id: json['id'],
+    );
+  }
+}
+
+class user {
+  final int? id;
+  final String? username;
+  final String? email;
+  final data userData;
+
+  const user({this.id, this.username, this.email, required this.userData});
+
+  factory user.fromJson(Map<String, dynamic> json) {
+    return user(
+        //id: json['id'], username: json['username'], email: json['email']);
+        userData: data.fromJson(
+      json['data'],
+    ));
+  }
+}
+
 class _LoginState extends State<Login> {
-  String initialItem = 'Admin';
-  var items = [
-    'Admin',
-    'Client',
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -133,11 +189,16 @@ class _LoginState extends State<Login> {
                             fontSize: 16),
                       ),
                       onPressed: () {
-                        Navigator.push(
+                        /* Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => DiscoverProjects()),
-                        );
+                        );*/
+                        setState(() {
+                          var temp = createAlbum();
+                          inspect(temp);
+                          print(temp);
+                        });
                       },
                     ),
                   ),

@@ -38,16 +38,16 @@ class _DashboardState extends State<Dashboard> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromRGBO(52, 130, 197, 1),
         elevation: 0,
         title: const Text(
           'Dashbord',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
-            color: Colors.black,
+            color: Colors.white,
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
@@ -60,7 +60,7 @@ class _DashboardState extends State<Dashboard> {
                   onPressed: () {},
                   icon: Icon(
                     Icons.calendar_today,
-                    color: Colors.black,
+                    color: Colors.white,
                   ),
                 ),
               ),
