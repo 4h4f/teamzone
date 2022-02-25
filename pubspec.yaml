@@ -39,6 +39,7 @@ dependencies:
   curved_navigation_bar: ^1.0.3
   http: ^0.13.4
   percent_indicator: ^4.0.0
+  material_dialogs: ^1.1.1
  # google_fonts: ^2.3.1
 
 dev_dependencies:

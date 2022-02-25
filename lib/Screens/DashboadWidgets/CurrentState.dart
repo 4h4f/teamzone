@@ -8,12 +8,19 @@ class CurrentState extends StatefulWidget {
 }
 
 class _CurrentStateState extends State<CurrentState> {
-  var temp = [
-    {"name": "Roomm", "description": 1},
-    {"name": "Twimm", "description": 1},
-    {"name": "Tanoodle", "description": 1},
-    {"name": "Meevee", "description": 1},
-    {"name": "Quamba", "description": 1}
+  List<String> taskName = [
+    "Emergency calls ",
+    "Health Ai System ",
+    "Big Data Analysis",
+    "International Airliens System",
+    "International Airliens System"
+  ];
+  List<String> taskCreationDate = [
+    "2/3/2021",
+    "16/7/2022",
+    "28/9/2021",
+    "1/1/2020",
+    "1/1/2020"
   ];
   @override
   Widget build(BuildContext context) {
@@ -60,22 +67,97 @@ class _CurrentStateState extends State<CurrentState> {
                   ],
                 ),
               ),
-              Column(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.all(20),
-                    height: 200,
-                    decoration: BoxDecoration(
-                        color: Color.fromRGBO(252, 243, 207, 1),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(.2),
-                            blurRadius: 10,
-                            spreadRadius: 1,
-                          ),
-                        ]),
-                  )
-                ],
+              SingleChildScrollView(
+                physics: ScrollPhysics(),
+                child: Column(
+                  children: <Widget>[
+                    ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: taskName.length,
+                        itemBuilder: (BuildContext ctx, int index) {
+                          return InkWell(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => SimpleDialog(
+                                  title: Text(taskName[index]),
+                                  contentPadding: EdgeInsets.all(20),
+                                  children: [Text('abdelrhaman mohammed')],
+                                ),
+                              );
+                            },
+                            child: Container(
+                              //-------------------------------- List View Container------
+                              margin: const EdgeInsets.all(20),
+                              height: 100,
+                              width: 300,
+                              decoration: BoxDecoration(
+                                  color: const Color.fromRGBO(52, 130, 197, .8),
+                                  borderRadius: BorderRadius.circular(25),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(.4),
+                                      blurRadius: 20,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                                child: Column(
+                                  children: <Widget>[
+                                    Row(
+                                      children: <Widget>[
+                                        const Icon(
+                                          Icons.alt_route_sharp,
+                                          color: Colors.white,
+                                        ),
+                                        const SizedBox(
+                                          width: 20,
+                                        ),
+                                        Text(
+                                          taskName[index],
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 15,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: Row(
+                                        children: <Widget>[
+                                          const Icon(
+                                            Icons.date_range_outlined,
+                                            size: 20,
+                                            color: Colors.white,
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            'Created at  ' +
+                                                taskCreationDate[index],
+                                            style: const TextStyle(
+                                                color: Colors.white),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        })
+                  ],
+                ),
               ),
 
               //-------------------
@@ -86,3 +168,20 @@ class _CurrentStateState extends State<CurrentState> {
     );
   }
 }
+
+
+/* Container(
+                    margin: EdgeInsets.all(20),
+                    height: 100,
+                    width: 300,
+                    decoration: BoxDecoration(
+                        color: const Color.fromRGBO(52, 130, 197, .8),
+                        borderRadius: BorderRadius.circular(25),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(.4),
+                            blurRadius: 20,
+                            spreadRadius: 1,
+                          ),
+                        ]),
+                  ) */
