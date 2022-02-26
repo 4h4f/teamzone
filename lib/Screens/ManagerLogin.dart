@@ -3,9 +3,11 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:teamzone/Screens/DiscoverProjects.dart';
 import 'package:http/http.dart' as http;
 import 'package:teamzone/Models/UserModels.dart';
+import 'package:material_dialogs/material_dialogs.dart';
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
@@ -202,6 +204,57 @@ class _LoginState extends State<Login> {
                       },
                     ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                    child: InkWell(
+                      onTap: () {
+                        Dialogs.materialDialog(
+                            context: context,
+                            msg: 'Enter your account email',
+                            title: 'Acount Recovery',
+                            actions: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Column(
+                                  children: <Widget>[
+                                    TextField(
+                                      decoration: InputDecoration(
+                                        prefixIcon: Icon(Icons.people),
+                                        border: InputBorder.none,
+                                        hintText: 'Email',
+                                        hintStyle:
+                                            TextStyle(color: Colors.grey),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 30),
+                                      child: IconsButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        text: 'OK',
+                                        iconData: Icons.done,
+                                        iconColor: Colors.white,
+                                        textStyle:
+                                            TextStyle(color: Colors.white),
+                                        color: Color(0xff30384c),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ]);
+                      },
+                      child: Text('Reset your password'),
+                    ),
+                  )
                 ],
               ),
             ),

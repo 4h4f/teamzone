@@ -38,7 +38,7 @@ class _DashboardState extends State<Dashboard> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Color.fromRGBO(52, 130, 197, 1),
+        backgroundColor: const Color.fromRGBO(52, 130, 197, 1),
         elevation: 0,
         title: const Text(
           'Dashbord',

@@ -14,7 +14,8 @@ class _WelcomeState extends State<Welcome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(155, 89, 182, 0.7),
+      backgroundColor:
+          Color(0xff30384c), //const Color.fromRGBO(155, 89, 182, 0.7),
       // ignore: sized_box_for_whitespace
       body: SafeArea(
         // ignore: sized_box_for_whitespace
@@ -28,8 +29,9 @@ class _WelcomeState extends State<Welcome> {
                 height: 100,
               ),
               const Text(
-                "Welcome",
+                "TEAM ZONE",
                 style: TextStyle(
+                  letterSpacing: 4,
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
@@ -41,7 +43,7 @@ class _WelcomeState extends State<Welcome> {
               const Text(
                 'Select your login type',
                 style: TextStyle(
-                  fontFamily: 'RobotoSerif',
+                  //fontFamily: 'RobotoSerif',
                   //fontWeight: FontWeight.bold,
                   fontSize: 15,
                   letterSpacing: 2.0,
@@ -62,7 +64,7 @@ class _WelcomeState extends State<Welcome> {
                   borderRadius: BorderRadius.circular(25),
                   boxShadow: [
                     BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
+                        color: Colors.grey.withOpacity(0.7),
                         blurRadius: 10,
                         spreadRadius: 1),
                   ],

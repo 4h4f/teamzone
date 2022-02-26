@@ -6,5 +6,5 @@ import 'Screens/Welcome.dart';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Dashboard(),
+      home: Welcome(),
     ));
