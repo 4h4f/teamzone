@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:material_dialogs/material_dialogs.dart';
+import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:teamzone/Screens/DiscoverProjects.dart';
 
 class Clientlogin extends StatefulWidget {
   Clientlogin({Key? key}) : super(key: key);
@@ -125,9 +128,66 @@ class _ClientloginState extends State<Clientlogin> {
                             fontWeight: FontWeight.w500,
                             fontSize: 16),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DiscoverProjects()),
+                        );
+                      },
                     ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                    child: InkWell(
+                      onTap: () {
+                        Dialogs.materialDialog(
+                            context: context,
+                            msg: 'Enter your account email',
+                            title: 'Acount Recovery',
+                            actions: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Column(
+                                  children: <Widget>[
+                                    const TextField(
+                                      decoration: InputDecoration(
+                                        prefixIcon: Icon(Icons.people),
+                                        border: InputBorder.none,
+                                        hintText: 'Email',
+                                        hintStyle:
+                                            TextStyle(color: Colors.grey),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 30),
+                                      child: IconsButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        text: 'OK',
+                                        iconData: Icons.done,
+                                        iconColor: Colors.white,
+                                        textStyle:
+                                            TextStyle(color: Colors.white),
+                                        color: Color(0xff30384c),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ]);
+                      },
+                      child: Text('Reset your password'),
+                    ),
+                  )
                 ],
               ),
             ),

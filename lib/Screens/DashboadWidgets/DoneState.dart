@@ -30,7 +30,7 @@ class _DoneStateState extends State<DoneState> {
                 height: 100,
                 padding: const EdgeInsets.all(20),
                 decoration: const BoxDecoration(
-                  color: Color.fromRGBO(52, 130, 197, 1),
+                  color: Color(0xff30384c), //Color.fromRGBO(52, 130, 197, 1),
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(30),
                       bottomRight: Radius.circular(30)),
@@ -39,18 +39,19 @@ class _DoneStateState extends State<DoneState> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 20),
+                          vertical: 10, horizontal: 40),
                       child: Row(
                         children: const <Widget>[
                           Icon(
-                            Icons.account_tree_outlined,
+                            Icons.done,
                             color: Colors.white,
+                            size: 40,
                           ),
                           SizedBox(
                             width: 20,
                           ),
                           Text(
-                            'In Progress Tasks',
+                            'Done Tasks',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 25.0,

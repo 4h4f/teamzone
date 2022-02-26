@@ -36,7 +36,7 @@ class _CurrentStateState extends State<CurrentState> {
                 height: 100,
                 padding: const EdgeInsets.all(20),
                 decoration: const BoxDecoration(
-                  color: Color.fromRGBO(52, 130, 197, 1),
+                  color: Color(0xff30384c), //Color.fromRGBO(52, 130, 197, 1),
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(30),
                       bottomRight: Radius.circular(30)),
@@ -51,6 +51,7 @@ class _CurrentStateState extends State<CurrentState> {
                           Icon(
                             Icons.account_tree_outlined,
                             color: Colors.white,
+                            size: 40,
                           ),
                           SizedBox(
                             width: 20,

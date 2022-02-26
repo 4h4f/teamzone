@@ -38,7 +38,8 @@ class _DashboardState extends State<Dashboard> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: const Color.fromRGBO(52, 130, 197, 1),
+        backgroundColor:
+            Color(0xff30384c), //const Color.fromRGBO(52, 130, 197, 1),
         elevation: 0,
         title: const Text(
           'Dashbord',
@@ -78,7 +79,7 @@ class _DashboardState extends State<Dashboard> {
           buttonBackgroundColor: Colors.blue,
           animationDuration: Duration(milliseconds: 400),
           animationCurve: Curves.easeInCirc,
-          color: Color.fromRGBO(76, 167, 245, 1),
+          color: Color.fromRGBO(52, 130, 197, 1),
           items: iconItems,
           index: index,
           height: 50,

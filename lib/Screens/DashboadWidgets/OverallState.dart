@@ -24,7 +24,7 @@ class _OverallStateState extends State<OverallState> {
                 height: 170,
                 padding: const EdgeInsets.all(20),
                 decoration: const BoxDecoration(
-                  color: Color.fromRGBO(52, 130, 197, 1),
+                  color: Color(0xff30384c), //Color.fromRGBO(52, 130, 197, 1),
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(30),
                       bottomRight: Radius.circular(30)),
@@ -90,7 +90,8 @@ class _OverallStateState extends State<OverallState> {
                           width: 150,
                           padding: const EdgeInsets.all(5),
                           decoration: BoxDecoration(
-                              color: const Color.fromRGBO(52, 130, 197, 1),
+                              color: Color(
+                                  0xff30384c), //const Color.fromRGBO(52, 130, 197, 1),
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(20),
                               ),
@@ -133,7 +134,7 @@ class _OverallStateState extends State<OverallState> {
                                   lineWidth: 12.0,
                                   backgroundColor: Colors.white,
                                   percent: 0.4,
-                                  progressColor: Colors.amber[200],
+                                  progressColor: Colors.amber,
                                   circularStrokeCap: CircularStrokeCap.round,
                                   animation: true,
                                   center: const Text(
@@ -156,7 +157,8 @@ class _OverallStateState extends State<OverallState> {
                           width: 150,
                           padding: const EdgeInsets.all(5),
                           decoration: BoxDecoration(
-                              color: const Color.fromRGBO(52, 130, 197, 1),
+                              color: Color(
+                                  0xff30384c), //const Color.fromRGBO(52, 130, 197, 1),
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(20),
                               ),
@@ -225,7 +227,8 @@ class _OverallStateState extends State<OverallState> {
                       width: 150,
                       padding: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                          color: const Color.fromRGBO(52, 130, 197, 1),
+                          color: Color(
+                              0xff30384c), //const Color.fromRGBO(52, 130, 197, 1),
                           borderRadius: const BorderRadius.all(
                             Radius.circular(20),
                           ),
@@ -267,13 +270,13 @@ class _OverallStateState extends State<OverallState> {
                               radius: 50,
                               lineWidth: 12.0,
                               backgroundColor: Colors.white,
-                              percent: 0.4,
+                              percent: 0.2,
                               progressColor:
                                   const Color.fromRGBO(225, 53, 53, .8),
                               circularStrokeCap: CircularStrokeCap.round,
                               animation: true,
                               center: const Text(
-                                '8/10',
+                                '1/10',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 10,
