@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:material_dialogs/material_dialogs.dart';
+import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 
 class CurrentState extends StatefulWidget {
   CurrentState({Key? key}) : super(key: key);
@@ -79,14 +81,29 @@ class _CurrentStateState extends State<CurrentState> {
                         itemBuilder: (BuildContext ctx, int index) {
                           return InkWell(
                             onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) => SimpleDialog(
-                                  title: Text(taskName[index]),
-                                  contentPadding: EdgeInsets.all(20),
-                                  children: [Text('abdelrhaman mohammed')],
-                                ),
-                              );
+                              Dialogs.bottomMaterialDialog(
+                                  context: context,
+                                  msg:
+                                      'This task is to give the client the ability to see his project`s progress',
+                                  title: taskName[index],
+                                  actions: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 50,
+                                      ),
+                                      child: IconsButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        text: 'Ok',
+                                        iconData: Icons.done,
+                                        color: Color.fromRGBO(52, 130, 197, .6),
+                                        textStyle:
+                                            TextStyle(color: Colors.white),
+                                        iconColor: Colors.white,
+                                      ),
+                                    )
+                                  ]);
                             },
                             child: Container(
                               //-------------------------------- List View Container------

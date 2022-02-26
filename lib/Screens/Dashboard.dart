@@ -26,11 +26,11 @@ class _DashboardState extends State<Dashboard> {
         size: 20,
       ),
       const Icon(
-        Icons.workspaces_rounded,
+        Icons.done,
         size: 20,
       ),
       const Icon(
-        Icons.published_with_changes,
+        Icons.error_outline,
         size: 20,
       ),
     ];
