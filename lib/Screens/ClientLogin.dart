@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:teamzone/Screens/Dashboard.dart';
 import 'package:teamzone/Screens/DiscoverProjects.dart';
 
 class Clientlogin extends StatefulWidget {
@@ -59,7 +60,7 @@ class _ClientloginState extends State<Clientlogin> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.white,
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                           color: Color.fromRGBO(196, 135, 198, .3),
                           blurRadius: 20,
@@ -70,12 +71,12 @@ class _ClientloginState extends State<Clientlogin> {
                     child: Column(
                       children: <Widget>[
                         Container(
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                               border: Border(
                                   bottom:
                                       BorderSide(color: Colors.grey[200]!))),
-                          child: TextField(
+                          child: const TextField(
                             decoration: InputDecoration(
                               prefixIcon: Icon(Icons.people),
                               border: InputBorder.none,
@@ -86,12 +87,12 @@ class _ClientloginState extends State<Clientlogin> {
                         ),
                         //----------------------------------
                         Container(
-                          padding: EdgeInsets.all(10),
-                          child: TextField(
+                          padding: const EdgeInsets.all(10),
+                          child: const TextField(
                             decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.password),
+                              prefixIcon: Icon(Icons.code),
                               border: InputBorder.none,
-                              hintText: 'Password',
+                              hintText: 'Project Code',
                               hintStyle: TextStyle(color: Colors.grey),
                             ),
                           ),
@@ -104,7 +105,7 @@ class _ClientloginState extends State<Clientlogin> {
                     height: 30,
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 40),
+                    margin: const EdgeInsets.symmetric(horizontal: 40),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
                       border: const Border(
@@ -131,13 +132,12 @@ class _ClientloginState extends State<Clientlogin> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => DiscoverProjects()),
+                          MaterialPageRoute(builder: (context) => Dashboard()),
                         );
                       },
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Center(
@@ -185,7 +185,7 @@ class _ClientloginState extends State<Clientlogin> {
                               ),
                             ]);
                       },
-                      child: Text('Reset your password'),
+                      child: const Text('Reset your password'),
                     ),
                   )
                 ],

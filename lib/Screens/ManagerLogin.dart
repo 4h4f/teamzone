@@ -8,6 +8,7 @@ import 'package:teamzone/Screens/DiscoverProjects.dart';
 import 'package:http/http.dart' as http;
 import 'package:teamzone/Models/UserModels.dart';
 import 'package:material_dialogs/material_dialogs.dart';
+import 'package:teamzone/Models/Message.dart';
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class Login extends StatefulWidget {
   _LoginState createState() => _LoginState();
 }
 
-Future<user> createAlbum() async {
+Future<Object> managerLogin(String password, String username) async {
   final response = await http.post(
     Uri.parse('http://137.184.88.117/api/users/admin/login'),
     headers: <String, String>{
@@ -24,21 +25,40 @@ Future<user> createAlbum() async {
       'Accept': 'application/json'
     },
     body: jsonEncode(<String, String>{
-      'username': 'Chadrick Friesen',
-      'password': 'password'
+      'username': username, //Chadrick Friesen
+      'password': password,
     }),
   );
   print(response.statusCode);
   if (response.statusCode == 200) {
     print(response.body);
-    return user.fromJson(jsonDecode(response.body));
+    return userFromJson(
+        response.body); //data.fromJson(jsonDecode(response.body));
   } else {
     print(response.body);
-    throw Exception('Failed to 404');
+    return messageFromJson(response.body);
+  }
+}
+
+/*class userData {
+  String username;
+  String email;
+  int id;
+  userData({required this.username, required this.email, required this.id});
+  factory userData.fromJson(Map<String, dynamic> json) {
+    return userData(
+        username: json['username'], email: json['email'], id: json['id']);
   }
 }
 
 class data {
+  userData ud;
+  data({required this.ud});
+  factory data.fromJson(Map<String, dynamic> parsedJson) {
+    return data(ud: userData.fromJson(parsedJson['data']));
+  }
+}*/
+/*class data {
   // var users;
   final String username;
   final String emial;
@@ -70,7 +90,7 @@ class user {
       json['data'],
     ));
   }
-}
+}*/
 
 class _LoginState extends State<Login> {
   @override
@@ -190,17 +210,28 @@ class _LoginState extends State<Login> {
                             fontWeight: FontWeight.w500,
                             fontSize: 16),
                       ),
-                      onPressed: () {
-                        /* Navigator.push(
+                      onPressed: () async {
+                        /*Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => DiscoverProjects()),
                         );*/
-                        setState(() {
-                          var temp = createAlbum();
+                        /* setState(() {
+                          user us = temp.managerLogin().then((user) {
+                            _user = user;
+                            
+                          });
+                        });*/
+
+                        /*var temp = managerLogin();
                           inspect(temp);
-                          print(temp);
-                        });
+                          print(temp);*/
+
+                        Object dt =
+                            await managerLogin('Chadrick Friese', 'password');
+
+                        // inspect(temp.);
+                        inspect((dt as Message).message);
                       },
                     ),
                   ),

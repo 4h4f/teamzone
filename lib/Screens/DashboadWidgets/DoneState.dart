@@ -106,7 +106,8 @@ class _DoneStateState extends State<DoneState> {
                               height: 100,
                               width: 300,
                               decoration: BoxDecoration(
-                                  color: const Color.fromRGBO(52, 130, 197, .8),
+                                  color: Color(
+                                      0xff30384c), //const Color.fromRGBO(52, 130, 197, .8),
                                   borderRadius: BorderRadius.circular(25),
                                   boxShadow: [
                                     BoxShadow(

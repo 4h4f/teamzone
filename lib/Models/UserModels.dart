@@ -1,17 +1,17 @@
 import 'dart:convert';
 
-Welcome welcomeFromJson(String str) => Welcome.fromJson(json.decode(str));
+user userFromJson(String str) => user.fromJson(json.decode(str));
 
-String welcomeToJson(Welcome data) => json.encode(data.toJson());
+String userToJson(user data) => json.encode(data.toJson());
 
-class Welcome {
-  Welcome({
+class user {
+  user({
     required this.data,
   });
 
   Data data;
 
-  factory Welcome.fromJson(Map<String, dynamic> json) => Welcome(
+  factory user.fromJson(Map<String, dynamic> json) => user(
         data: Data.fromJson(json["data"]),
       );
 

@@ -1,5 +1,7 @@
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:teamzone/Screens/NavBar.dart';
 import 'DashboadWidgets/CurrentState.dart';
 import 'DashboadWidgets/DoneState.dart';
 import 'DashboadWidgets/OverallState.dart';
@@ -35,6 +37,7 @@ class _DashboardState extends State<Dashboard> {
       ),
     ];
     return Scaffold(
+      drawer: NavBar(),
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
@@ -74,17 +77,41 @@ class _DashboardState extends State<Dashboard> {
         data: Theme.of(context).copyWith(
           iconTheme: IconThemeData(color: Colors.white),
         ),
-        child: CurvedNavigationBar(
+        child: BottomNavyBar(
+          selectedIndex: index,
+          items: <BottomNavyBarItem>[
+            BottomNavyBarItem(
+              icon: Icon(Icons.dashboard),
+              title: Text(
+                'Status',
+                style: TextStyle(color: Colors.black),
+              ),
+              activeColor: Colors.lightBlue,
+            ),
+            BottomNavyBarItem(
+              icon: Icon(Icons.alt_route_sharp),
+              title: Text('In Progress', style: TextStyle(color: Colors.black)),
+              activeColor: Colors.amberAccent,
+            ),
+            BottomNavyBarItem(
+              icon: Icon(Icons.done_outline_rounded),
+              title: Text('Done', style: TextStyle(color: Colors.black)),
+              activeColor: Colors.lightGreen,
+            )
+          ],
+          onItemSelected: (index) => setState(() => this.index = index),
+        ),
+        /* child: CurvedNavigationBar(
           backgroundColor: Colors.transparent,
-          buttonBackgroundColor: Colors.blue,
+          buttonBackgroundColor: Color.fromRGBO(48, 56, 76, 1),
           animationDuration: Duration(milliseconds: 400),
           animationCurve: Curves.easeInCirc,
-          color: Color.fromRGBO(52, 130, 197, 1),
+          color: Color.fromRGBO(48, 56, 76, 1),
           items: iconItems,
           index: index,
           height: 50,
           onTap: (index) => setState(() => this.index = index),
-        ),
+        ),*/
       ),
     );
   }

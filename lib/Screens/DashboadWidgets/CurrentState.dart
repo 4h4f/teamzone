@@ -12,7 +12,7 @@ class CurrentState extends StatefulWidget {
 class _CurrentStateState extends State<CurrentState> {
   List<String> taskName = [
     "Emergency calls ",
-    "Health Ai System ",
+    "Military Force System",
     "Big Data Analysis",
     "International Airliens System",
     "International Airliens System"
@@ -112,7 +112,8 @@ class _CurrentStateState extends State<CurrentState> {
                               height: 100,
                               width: 300,
                               decoration: BoxDecoration(
-                                  color: const Color.fromRGBO(52, 130, 197, .8),
+                                  color: Color(
+                                      0xff30384c), //const Color.fromRGBO(52, 130, 197, .8),
                                   borderRadius: BorderRadius.circular(25),
                                   boxShadow: [
                                     BoxShadow(

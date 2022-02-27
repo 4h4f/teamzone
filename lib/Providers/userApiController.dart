@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:teamzone/Models/UserModels.dart';
 
 class userApiContoller {
-  Future<Welcome> getUserInfo() async {
+  Future<user> getUserInfo() async {
     final response = await http.post(
       Uri.parse('http://137.184.88.117/api/users/admin/login'),
       headers: <String, String>{
@@ -17,12 +17,12 @@ class userApiContoller {
       }),
     );
     if (response.statusCode == 200) {
-      final users = welcomeFromJson(response.body);
+      final users = userFromJson(response.body);
       print(users);
       return users;
     } else {
       final body = response.body;
-      final error = welcomeFromJson(body);
+      final error = userFromJson(body);
       print(error);
       return error;
     }
