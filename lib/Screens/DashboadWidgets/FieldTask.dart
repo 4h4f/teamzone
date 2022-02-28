@@ -77,7 +77,7 @@ class _FiledTaskState extends State<FiledTask> {
                         itemBuilder: (BuildContext ctx, int index) {
                           return InkWell(
                             onTap: () {
-                              Dialogs.materialDialog(
+                              Dialogs.bottomMaterialDialog(
                                   context: context,
                                   msg:
                                       'This task is to give the client the ability to see his project`s progress',
