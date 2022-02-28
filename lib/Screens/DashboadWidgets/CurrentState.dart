@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:circular_countdown/circular_countdown.dart';
 
 class CurrentState extends StatefulWidget {
   CurrentState({Key? key}) : super(key: key);
@@ -11,18 +12,22 @@ class CurrentState extends StatefulWidget {
 
 class _CurrentStateState extends State<CurrentState> {
   List<String> taskName = [
-    "Emergency calls ",
-    "Military Force System",
-    "Big Data Analysis",
-    "International Airliens System",
-    "International Airliens System"
+    "Front-end",
+    "Back-end",
+    "Integration",
+    "Testing",
   ];
   List<String> taskCreationDate = [
     "2/3/2021",
     "16/7/2022",
     "28/9/2021",
     "1/1/2020",
-    "1/1/2020"
+  ];
+  List<String> master = [
+    "Mohammed Ali",
+    "Mohammed Ibrahem",
+    "Osman Alhaj",
+    "Khalid Omer",
   ];
   @override
   Widget build(BuildContext context) {
@@ -50,7 +55,7 @@ class _CurrentStateState extends State<CurrentState> {
                         children: const <Widget>[
                           Icon(
                             Icons.account_tree_outlined,
-                            color: Colors.white,
+                            color: Colors.amberAccent,
                             size: 40,
                           ),
                           SizedBox(
@@ -82,7 +87,7 @@ class _CurrentStateState extends State<CurrentState> {
                         itemBuilder: (BuildContext ctx, int index) {
                           return InkWell(
                             onTap: () {
-                              Dialogs.bottomMaterialDialog(
+                              Dialogs.materialDialog(
                                   context: context,
                                   msg:
                                       'This task is to give the client the ability to see his project`s progress',
@@ -109,7 +114,7 @@ class _CurrentStateState extends State<CurrentState> {
                             child: Container(
                               //-------------------------------- List View Container------
                               margin: const EdgeInsets.all(20),
-                              height: 100,
+                              height: 130,
                               width: 300,
                               decoration: BoxDecoration(
                                   color: Color(
@@ -122,55 +127,84 @@ class _CurrentStateState extends State<CurrentState> {
                                       spreadRadius: 1,
                                     ),
                                   ]),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
-                                child: Column(
-                                  children: <Widget>[
-                                    Row(
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Column(
                                       children: <Widget>[
-                                        const Icon(
-                                          Icons.alt_route_sharp,
-                                          color: Colors.white,
+                                        Row(
+                                          children: <Widget>[
+                                            const Icon(
+                                              Icons.alt_route_sharp,
+                                              color: Colors.white,
+                                            ),
+                                            const SizedBox(
+                                              width: 20,
+                                            ),
+                                            Text(
+                                              taskName[index],
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          ],
                                         ),
                                         const SizedBox(
-                                          width: 20,
+                                          height: 15,
                                         ),
-                                        Text(
-                                          taskName[index],
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold),
-                                        )
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 10),
+                                          child: Row(
+                                            children: <Widget>[
+                                              const Icon(
+                                                Icons.person_outline,
+                                                size: 20,
+                                                color: Colors.white,
+                                              ),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                master[index],
+                                                style: const TextStyle(
+                                                    color: Colors.white),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 10),
+                                          child: Row(
+                                            children: <Widget>[
+                                              const Icon(
+                                                Icons.date_range_outlined,
+                                                size: 20,
+                                                color: Colors.white,
+                                              ),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                'Created at  ' +
+                                                    taskCreationDate[index],
+                                                style: const TextStyle(
+                                                    color: Colors.white),
+                                              )
+                                            ],
+                                          ),
+                                        ),
                                       ],
                                     ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      child: Row(
-                                        children: <Widget>[
-                                          const Icon(
-                                            Icons.date_range_outlined,
-                                            size: 20,
-                                            color: Colors.white,
-                                          ),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                            'Created at  ' +
-                                                taskCreationDate[index],
-                                            style: const TextStyle(
-                                                color: Colors.white),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           );
@@ -187,7 +221,6 @@ class _CurrentStateState extends State<CurrentState> {
     );
   }
 }
-
 
 /* Container(
                     margin: EdgeInsets.all(20),

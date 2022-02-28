@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/parser.dart';
 import 'package:teamzone/Screens/ClientLogin.dart';
 import 'ManagerLogin.dart';
 
@@ -14,7 +13,7 @@ class _WelcomeState extends State<Welcome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(48, 56, 76, 1),
+      backgroundColor: const Color.fromRGBO(48, 56, 76, 1),
       //const Color.fromRGBO(155, 89, 182, 0.7),
       // ignore: sized_box_for_whitespace
       body: SafeArea(
@@ -55,7 +54,7 @@ class _WelcomeState extends State<Welcome> {
                   ],
                 ),
               ),
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context).size.height,
                 width: double.infinity,
                 child: Column(
@@ -66,7 +65,7 @@ class _WelcomeState extends State<Welcome> {
                     ),
 
                     const Text(
-                      'Select your login type',
+                      'Select Your Login Type',
                       style: TextStyle(
                         //fontFamily: 'RobotoSerif',
                         //fontWeight: FontWeight.bold,
@@ -103,7 +102,8 @@ class _WelcomeState extends State<Welcome> {
                       child: Padding(
                         padding:
                             //const EdgeInsets.symmetric(horizontal: 50, vertical: 120),
-                            EdgeInsets.only(top: 240, left: 50, right: 50),
+                            const EdgeInsets.only(
+                                top: 240, left: 50, right: 50),
                         child: Column(
                           children: <Widget>[
                             Container(
@@ -124,8 +124,9 @@ class _WelcomeState extends State<Welcome> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(50)),
                                 child: const Text(
-                                  'Manager',
+                                  'MANAGER',
                                   style: TextStyle(
+                                      letterSpacing: 2,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w900,
                                       fontSize: 16),
@@ -161,8 +162,9 @@ class _WelcomeState extends State<Welcome> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(50)),
                                 child: const Text(
-                                  'Client',
+                                  'CLIENT',
                                   style: TextStyle(
+                                      letterSpacing: 2,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w900,
                                       fontSize: 16),
@@ -171,7 +173,8 @@ class _WelcomeState extends State<Welcome> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Clientlogin()),
+                                        builder: (context) =>
+                                            const Clientlogin()),
                                   );
                                 },
                               ),

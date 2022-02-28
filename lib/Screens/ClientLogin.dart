@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:teamzone/Screens/Dashboard.dart';
-import 'package:teamzone/Screens/DiscoverProjects.dart';
 
 class Clientlogin extends StatefulWidget {
-  Clientlogin({Key? key}) : super(key: key);
+  const Clientlogin({Key? key}) : super(key: key);
 
   @override
   _ClientloginState createState() => _ClientloginState();
@@ -123,7 +122,7 @@ class _ClientloginState extends State<Clientlogin> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50)),
                       child: const Text(
-                        'Login',
+                        'LOGIN',
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
@@ -175,9 +174,9 @@ class _ClientloginState extends State<Clientlogin> {
                                         text: 'OK',
                                         iconData: Icons.done,
                                         iconColor: Colors.white,
-                                        textStyle:
-                                            TextStyle(color: Colors.white),
-                                        color: Color(0xff30384c),
+                                        textStyle: const TextStyle(
+                                            color: Colors.white),
+                                        color: const Color(0xff30384c),
                                       ),
                                     )
                                   ],

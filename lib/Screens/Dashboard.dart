@@ -1,6 +1,7 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:teamzone/Screens/DashboadWidgets/FieldTask.dart';
 import 'package:teamzone/Screens/NavBar.dart';
 import 'DashboadWidgets/CurrentState.dart';
 import 'DashboadWidgets/DoneState.dart';
@@ -17,11 +18,7 @@ class _DashboardState extends State<Dashboard> {
   int index = 0;
   @override
   Widget build(BuildContext context) {
-    final screens = [
-      OverallState(),
-      CurrentState(),
-      DoneState(),
-    ];
+    final screens = [OverallState(), CurrentState(), DoneState(), FiledTask()];
     final iconItems = <Widget>[
       const Icon(
         Icons.dashboard,
@@ -42,7 +39,7 @@ class _DashboardState extends State<Dashboard> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor:
-            Color(0xff30384c), //const Color.fromRGBO(52, 130, 197, 1),
+            const Color(0xff30384c), //const Color.fromRGBO(52, 130, 197, 1),
         elevation: 0,
         title: const Text(
           'Dashbord',
@@ -55,7 +52,7 @@ class _DashboardState extends State<Dashboard> {
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        actions: <Widget>[
+        /*  actions: <Widget>[
           Row(
             children: <Widget>[
               Padding(
@@ -70,7 +67,7 @@ class _DashboardState extends State<Dashboard> {
               ),
             ],
           ),
-        ],
+        ],*/
       ),
       body: screens[index],
       bottomNavigationBar: Theme(
@@ -97,6 +94,11 @@ class _DashboardState extends State<Dashboard> {
               icon: Icon(Icons.done_outline_rounded),
               title: Text('Done', style: TextStyle(color: Colors.black)),
               activeColor: Colors.lightGreen,
+            ),
+            BottomNavyBarItem(
+              icon: Icon(Icons.error_outline_sharp),
+              title: Text('Done', style: TextStyle(color: Colors.black)),
+              activeColor: Colors.redAccent,
             )
           ],
           onItemSelected: (index) => setState(() => this.index = index),

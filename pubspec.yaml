@@ -42,6 +42,8 @@ dependencies:
   material_dialogs: ^1.1.1
   bottom_navy_bar: ^6.0.0
   table_calendar: ^3.0.4
+  circular_countdown: ^2.1.0
+  introduction_screen: ^3.0.0
   #google_fonts: ^2.3.0
   
 

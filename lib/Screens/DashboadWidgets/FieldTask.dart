@@ -2,25 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 
-class DoneState extends StatefulWidget {
-  DoneState({Key? key}) : super(key: key);
+class FiledTask extends StatefulWidget {
+  FiledTask({Key? key}) : super(key: key);
 
   @override
-  _DoneStateState createState() => _DoneStateState();
+  _FiledTaskState createState() => _FiledTaskState();
 }
 
-class _DoneStateState extends State<DoneState> {
+class _FiledTaskState extends State<FiledTask> {
   List<String> taskName = [
-    "Authentication",
-    "Chat Testing",
+    "Report Component",
   ];
   List<String> taskCreationDate = [
     "2/3/2021",
-    "16/7/2022",
   ];
   List<String> master = [
-    "Mostafa Ahmed",
-    "Mohammed Ibrahem",
+    "Mohammed Ali",
   ];
   @override
   Widget build(BuildContext context) {
@@ -43,19 +40,19 @@ class _DoneStateState extends State<DoneState> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 40),
+                          vertical: 10, horizontal: 50),
                       child: Row(
                         children: const <Widget>[
                           Icon(
-                            Icons.done,
-                            color: Colors.lightGreen,
+                            Icons.error_outline_sharp,
+                            color: Colors.redAccent,
                             size: 40,
                           ),
                           SizedBox(
                             width: 20,
                           ),
                           Text(
-                            'Done Tasks',
+                            'Field Tasks',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 25.0,
@@ -80,7 +77,7 @@ class _DoneStateState extends State<DoneState> {
                         itemBuilder: (BuildContext ctx, int index) {
                           return InkWell(
                             onTap: () {
-                              Dialogs.bottomMaterialDialog(
+                              Dialogs.materialDialog(
                                   context: context,
                                   msg:
                                       'This task is to give the client the ability to see his project`s progress',
@@ -120,78 +117,84 @@ class _DoneStateState extends State<DoneState> {
                                       spreadRadius: 1,
                                     ),
                                   ]),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
-                                child: Column(
-                                  children: <Widget>[
-                                    Row(
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Column(
                                       children: <Widget>[
-                                        const Icon(
-                                          Icons.alt_route_sharp,
-                                          color: Colors.white,
+                                        Row(
+                                          children: <Widget>[
+                                            const Icon(
+                                              Icons.alt_route_sharp,
+                                              color: Colors.white,
+                                            ),
+                                            const SizedBox(
+                                              width: 20,
+                                            ),
+                                            Text(
+                                              taskName[index],
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          ],
                                         ),
                                         const SizedBox(
-                                          width: 20,
+                                          height: 15,
                                         ),
-                                        Text(
-                                          taskName[index],
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold),
-                                        )
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 10),
+                                          child: Row(
+                                            children: <Widget>[
+                                              const Icon(
+                                                Icons.person_outline,
+                                                size: 20,
+                                                color: Colors.white,
+                                              ),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                master[index],
+                                                style: const TextStyle(
+                                                    color: Colors.white),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 10),
+                                          child: Row(
+                                            children: <Widget>[
+                                              const Icon(
+                                                Icons.date_range_outlined,
+                                                size: 20,
+                                                color: Colors.white,
+                                              ),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                'Created at  ' +
+                                                    taskCreationDate[index],
+                                                style: const TextStyle(
+                                                    color: Colors.white),
+                                              )
+                                            ],
+                                          ),
+                                        ),
                                       ],
                                     ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      child: Row(
-                                        children: <Widget>[
-                                          const Icon(
-                                            Icons.person_outline,
-                                            size: 20,
-                                            color: Colors.white,
-                                          ),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                            master[index],
-                                            style: const TextStyle(
-                                                color: Colors.white),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      child: Row(
-                                        children: <Widget>[
-                                          const Icon(
-                                            Icons.date_range_outlined,
-                                            size: 20,
-                                            color: Colors.white,
-                                          ),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                            'Created at  ' +
-                                                taskCreationDate[index],
-                                            style: const TextStyle(
-                                                color: Colors.white),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           );
@@ -208,7 +211,3 @@ class _DoneStateState extends State<DoneState> {
     );
   }
 }
-
-
-
-//DoneState

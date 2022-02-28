@@ -141,7 +141,7 @@ class _LoginState extends State<Login> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.white,
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                           color: Color.fromRGBO(196, 135, 198, .3),
                           blurRadius: 20,
@@ -152,12 +152,12 @@ class _LoginState extends State<Login> {
                     child: Column(
                       children: <Widget>[
                         Container(
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                               border: Border(
                                   bottom:
                                       BorderSide(color: Colors.grey[200]!))),
-                          child: TextField(
+                          child: const TextField(
                             decoration: InputDecoration(
                               prefixIcon: Icon(Icons.people),
                               border: InputBorder.none,
@@ -168,8 +168,8 @@ class _LoginState extends State<Login> {
                         ),
                         //----------------------------------
                         Container(
-                          padding: EdgeInsets.all(10),
-                          child: TextField(
+                          padding: const EdgeInsets.all(10),
+                          child: const TextField(
                             decoration: InputDecoration(
                               prefixIcon: Icon(Icons.password),
                               border: InputBorder.none,
@@ -182,11 +182,11 @@ class _LoginState extends State<Login> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 80,
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 40),
+                    margin: const EdgeInsets.symmetric(horizontal: 40),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
                       border: const Border(
@@ -204,18 +204,18 @@ class _LoginState extends State<Login> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50)),
                       child: const Text(
-                        'Login',
+                        'LOGIN',
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
                             fontSize: 16),
                       ),
                       onPressed: () async {
-                        /*Navigator.push(
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => DiscoverProjects()),
-                        );*/
+                        );
                         /* setState(() {
                           user us = temp.managerLogin().then((user) {
                             _user = user;
@@ -227,15 +227,15 @@ class _LoginState extends State<Login> {
                           inspect(temp);
                           print(temp);*/
 
-                        Object dt =
+                        /* Object dt =
                             await managerLogin('Chadrick Friese', 'password');
 
                         // inspect(temp.);
-                        inspect((dt as Message).message);
+                        inspect((dt as Message).message);*/
                       },
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Center(
@@ -251,7 +251,7 @@ class _LoginState extends State<Login> {
                                     const EdgeInsets.symmetric(horizontal: 20),
                                 child: Column(
                                   children: <Widget>[
-                                    TextField(
+                                    const TextField(
                                       decoration: InputDecoration(
                                         prefixIcon: Icon(Icons.people),
                                         border: InputBorder.none,
@@ -260,7 +260,7 @@ class _LoginState extends State<Login> {
                                             TextStyle(color: Colors.grey),
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
                                     Padding(
@@ -273,9 +273,9 @@ class _LoginState extends State<Login> {
                                         text: 'OK',
                                         iconData: Icons.done,
                                         iconColor: Colors.white,
-                                        textStyle:
-                                            TextStyle(color: Colors.white),
-                                        color: Color(0xff30384c),
+                                        textStyle: const TextStyle(
+                                            color: Colors.white),
+                                        color: const Color(0xff30384c),
                                       ),
                                     )
                                   ],
@@ -283,7 +283,7 @@ class _LoginState extends State<Login> {
                               ),
                             ]);
                       },
-                      child: Text('Reset your password'),
+                      child: const Text('Reset your password'),
                     ),
                   ),
                 ],
