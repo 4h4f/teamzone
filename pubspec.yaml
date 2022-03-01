@@ -44,6 +44,7 @@ dependencies:
   table_calendar: ^3.0.4
   circular_countdown: ^2.1.0
   introduction_screen: ^3.0.0
+  awesome_dialog: ^2.1.2
   #google_fonts: ^2.3.0
   
 

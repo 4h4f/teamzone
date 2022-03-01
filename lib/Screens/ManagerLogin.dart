@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:teamzone/Models/UserModels.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:teamzone/Models/Message.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
@@ -249,11 +250,29 @@ class _LoginState extends State<Login> {
                             usernameController.text, passwordController.text);
                         print(respons.statusCode);
                         if (respons.statusCode == 200) {
-                          user us = (await userdate(respons));
-                          print(us.data.name);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DiscoverProjects()),
+                          );
                         } else if (respons.statusCode == 404) {
                           Message message = await messagedata(respons);
-                          print(message.message);
+                          // ignore: avoid_single_cascade_in_expression_statements
+                          AwesomeDialog(
+                            context: context,
+                            animType: AnimType.TOPSLIDE,
+                            dialogType: DialogType.ERROR,
+                            body: const Center(
+                              child: Text(
+                                'User infromation not found',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            title: 'Login Error',
+                            desc: 'This is also Ignored',
+                            btnOkOnPress: () {},
+                          )..show();
                         }
                       },
                     ),
