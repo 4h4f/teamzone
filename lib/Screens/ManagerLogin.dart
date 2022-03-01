@@ -17,7 +17,7 @@ class Login extends StatefulWidget {
   _LoginState createState() => _LoginState();
 }
 
-Future<Object> managerLogin(String password, String username) async {
+Future<http.Response> managerLogin(String username, String password) async {
   final response = await http.post(
     Uri.parse('http://137.184.88.117/api/users/admin/login'),
     headers: <String, String>{
@@ -29,16 +29,25 @@ Future<Object> managerLogin(String password, String username) async {
       'password': password,
     }),
   );
-  print(response.statusCode);
-  if (response.statusCode == 200) {
-    print(response.body);
-    return userFromJson(
-        response.body); //data.fromJson(jsonDecode(response.body));
-  } else {
-    print(response.body);
-    return messageFromJson(response.body);
-  }
+  return response;
 }
+
+Future<user> userdate(http.Response rs) async {
+  return userFromJson(rs.body);
+}
+
+Future<Message> messagedata(http.Response rs) async {
+  return messageFromJson(rs.body);
+}
+//print(response.statusCode);
+/* if (response.statusCode == 200) {
+    //print(response.body);
+    return userFromJson(response.body)
+        as Data; //data.fromJson(jsonDecode(response.body));
+  } else {
+    // print(response.body);
+    return response; //messageFromJson(response.body) as Message;
+  }*/
 
 /*class userData {
   String username;
@@ -91,6 +100,8 @@ class user {
     ));
   }
 }*/
+final usernameController = TextEditingController();
+final passwordController = TextEditingController();
 
 class _LoginState extends State<Login> {
   @override
@@ -157,7 +168,8 @@ class _LoginState extends State<Login> {
                               border: Border(
                                   bottom:
                                       BorderSide(color: Colors.grey[200]!))),
-                          child: const TextField(
+                          child: TextField(
+                            controller: usernameController,
                             decoration: InputDecoration(
                               prefixIcon: Icon(Icons.people),
                               border: InputBorder.none,
@@ -169,8 +181,9 @@ class _LoginState extends State<Login> {
                         //----------------------------------
                         Container(
                           padding: const EdgeInsets.all(10),
-                          child: const TextField(
-                            decoration: InputDecoration(
+                          child: TextField(
+                            controller: passwordController,
+                            decoration: const InputDecoration(
                               prefixIcon: Icon(Icons.password),
                               border: InputBorder.none,
                               hintText: 'Password',
@@ -211,11 +224,11 @@ class _LoginState extends State<Login> {
                             fontSize: 16),
                       ),
                       onPressed: () async {
-                        Navigator.push(
+                        /* Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => DiscoverProjects()),
-                        );
+                        );*/
                         /* setState(() {
                           user us = temp.managerLogin().then((user) {
                             _user = user;
@@ -232,6 +245,16 @@ class _LoginState extends State<Login> {
 
                         // inspect(temp.);
                         inspect((dt as Message).message);*/
+                        http.Response respons = await managerLogin(
+                            usernameController.text, passwordController.text);
+                        print(respons.statusCode);
+                        if (respons.statusCode == 200) {
+                          user us = (await userdate(respons));
+                          print(us.data.name);
+                        } else if (respons.statusCode == 404) {
+                          Message message = await messagedata(respons);
+                          print(message.message);
+                        }
                       },
                     ),
                   ),
