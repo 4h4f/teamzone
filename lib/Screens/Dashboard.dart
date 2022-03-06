@@ -1,11 +1,33 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:teamzone/Models/ProjectModel.dart';
 import 'package:teamzone/Screens/DashboadWidgets/FieldTask.dart';
 import 'package:teamzone/Screens/NavBar.dart';
 import 'DashboadWidgets/CurrentState.dart';
 import 'DashboadWidgets/DoneState.dart';
 import 'DashboadWidgets/OverallState.dart';
+import 'package:http/http.dart' as http;
+
+Future<ProjectModel> getProjectInfo() async {
+  final response = await http.post(
+    Uri.parse('http://137.184.88.117/api/client/project'),
+    headers: <String, String>{
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body: jsonEncode(<String, String>{
+      'username': 'Trudie Walter', //Chadrick Friesen
+      'code': 'p1Mi1ipJ',
+    }),
+  );
+  inspect(response);
+  print(response.statusCode);
+  return projectFromJson(response.body);
+}
 
 class Dashboard extends StatefulWidget {
   Dashboard({Key? key}) : super(key: key);

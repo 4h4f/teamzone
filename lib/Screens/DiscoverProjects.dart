@@ -1,6 +1,35 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:teamzone/Providers/projectTemp.dart';
 import 'package:teamzone/Screens/Dashboard.dart';
+import 'package:teamzone/Models/ProjectModel.dart';
+import 'package:teamzone/Providers/ProjectApiController.dart';
+import 'package:http/http.dart' as http;
+
+Future<ProjectModel> getProjectInfo() async {
+  final response = await http.post(
+    Uri.parse('http://137.184.88.117/api/client/project'),
+    headers: <String, String>{
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body: jsonEncode(<String, String>{
+      'username': 'Trudie Walter', //Chadrick Friesen
+      'code': 'p1Mi1ipJ',
+    }),
+  );
+  inspect(response);
+  print(response.statusCode);
+  return projectFromJson(response.body);
+}
+
+/*Future getpjinfo() async {
+  ProjectModel pjo = await getProjectInfo();
+  return pjo.data.name;
+}*/
 
 class DiscoverProjects extends StatefulWidget {
   DiscoverProjects({Key? key}) : super(key: key);
@@ -28,8 +57,75 @@ class _DiscoverProjectsState extends State<DiscoverProjects> {
     "Ahmed mohammed",
     "Kareem ali",
   ];
+  // late Future<ProjectModel> pro;
+
+  /* @override
+  void initState() {
+    super.initState();
+
+    // fetchName function is a asynchronously to GET http data
+    /* getProjectInfo().then((result) {
+      // Once we receive our name we trigger rebuild.
+      setState(() {
+        pj = result;
+      });
+    });*/
+  }*/
+
+  //late ProjectModel pj;
+  //late var pr;
+  //late ProjectModel projectInfo;
+  /* @override
+  initState() {
+    super.initState();
+    // Add listeners to this class
+    // pr = getProjectInfo();
+    convertProjectInfo();
+  }*/
+
+  /*@override
+  void setState(VoidCallback fn) {
+    // TODO: implement setState
+    super.setState(fn);
+    // pr = getProjectInfo() as ProjectModel;
+  }*/
+
+  /*void convertProjectInfo() async {
+    pj = await getProjectInfo();
+  }*/
+
   @override
   Widget build(BuildContext context) {
+    /* return SafeArea(
+      child: FutureBuilder<ProjectModel>(
+          future: getProjectInfo(),
+          builder:
+              (BuildContext context, AsyncSnapshot<ProjectModel> snapshot) {
+            inspect(snapshot.data);
+            if (snapshot.hasData) {
+              return Center(
+                child: Text('$snapshot.data.data.id'),
+              );
+            }
+            /* if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.data == null) {
+                return Text('no data');
+              } else {
+                return Center(
+                  child: Text('$snapshot.data.data.id'),
+                );
+              }*/
+
+            //inspect(snapshot.data);
+
+            else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          }),
+    );
+  }*/
+
+    //getProject();
     return SafeArea(
       child: Scaffold(
         backgroundColor:
@@ -97,11 +193,13 @@ class _DiscoverProjectsState extends State<DiscoverProjects> {
               itemCount: projectnames.length,
               itemBuilder: (BuildContext ctx, int index) {
                 return InkWell(
-                  onTap: () {
-                    Navigator.push(
+                  onTap: () async {
+                    ProjectModel temp = await getProjectInfo();
+                    inspect(temp);
+                    /*Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => Dashboard()),
-                    );
+                    );*/
                   },
                   child: Container(
                     margin: const EdgeInsets.all(20),
@@ -211,4 +309,9 @@ class _DiscoverProjectsState extends State<DiscoverProjects> {
       ),
     );
   }
+
+  /*void getProject() async {
+    ProjectModel pr = await ProjectApiController.getProjectInfo();
+    projectInfo = pr;
+  }*/
 }

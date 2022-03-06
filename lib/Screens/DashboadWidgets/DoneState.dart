@@ -1,6 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:teamzone/Models/ProjectModel.dart';
+import 'dart:convert';
+import 'dart:developer';
+import 'package:http/http.dart' as http;
+
+Future<ProjectModel> getProjectInfo() async {
+  final response = await http.post(
+    Uri.parse('http://137.184.88.117/api/client/project'),
+    headers: <String, String>{
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body: jsonEncode(<String, String>{
+      'username': 'Trudie Walter', //Chadrick Friesen
+      'code': 'p1Mi1ipJ',
+    }),
+  );
+  inspect(response);
+  print(response.statusCode);
+  return projectFromJson(response.body);
+}
 
 class DoneState extends StatefulWidget {
   DoneState({Key? key}) : super(key: key);
@@ -22,6 +43,22 @@ class _DoneStateState extends State<DoneState> {
     "Mostafa Ahmed",
     "Mohammed Ibrahem",
   ];
+  @override
+  void initState() {
+    taskcomp();
+    super.initState();
+  }
+
+  late List<Task> taskComplet;
+  void taskcomp() async {
+    ProjectModel pj = await getProjectInfo();
+    for (int i = 0; i <= pj.data.tasks.length; i++) {
+      if (pj.data.tasks[i].status == 'Completed') {
+        taskComplet.add(pj.data.tasks[i]);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,130 +109,284 @@ class _DoneStateState extends State<DoneState> {
                 physics: ScrollPhysics(),
                 child: Column(
                   children: <Widget>[
-                    ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: taskName.length,
-                        itemBuilder: (BuildContext ctx, int index) {
-                          return InkWell(
-                            onTap: () {
-                              Dialogs.bottomMaterialDialog(
-                                  context: context,
-                                  msg:
-                                      'This task is to give the client the ability to see his project`s progress',
-                                  title: taskName[index],
-                                  actions: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 50,
+                    FutureBuilder(
+                        future: getProjectInfo(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<ProjectModel> snapshot) {
+                          if (snapshot.hasData) {
+                            return ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: snapshot.data!.data.tasks.length,
+                                itemBuilder: (BuildContext ctx, int index) {
+                                  /*  if (snapshot.data!.data.tasks[index].status ==
+                                      'Completed') {
+                                    taskComplet
+                                        .add(snapshot.data!.data.tasks[index]);
+                                  }*/
+                                  return InkWell(
+                                    onTap: () {
+                                      Dialogs.bottomMaterialDialog(
+                                          context: context,
+                                          msg: snapshot.data!.data.tasks[index]
+                                              .description,
+                                          title:
+                                              snapshot.data!.data.tasks[0].name,
+                                          actions: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                horizontal: 50,
+                                              ),
+                                              child: IconsButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                text: 'Ok',
+                                                iconData: Icons.done,
+                                                color: Color.fromRGBO(
+                                                    52, 130, 197, .6),
+                                                textStyle: TextStyle(
+                                                    color: Colors.white),
+                                                iconColor: Colors.white,
+                                              ),
+                                            )
+                                          ]);
+                                    },
+                                    child: Container(
+                                      //-------------------------------- List View Container------
+                                      margin: const EdgeInsets.all(20),
+                                      height: 130,
+                                      width: 300,
+                                      decoration: BoxDecoration(
+                                          color: Color(
+                                              0xff30384c), //const Color.fromRGBO(52, 130, 197, .8),
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.black.withOpacity(.4),
+                                              blurRadius: 20,
+                                              spreadRadius: 1,
+                                            ),
+                                          ]),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20, vertical: 10),
+                                        child: Column(
+                                          children: <Widget>[
+                                            Row(
+                                              children: <Widget>[
+                                                const Icon(
+                                                  Icons.alt_route_sharp,
+                                                  color: Colors.white,
+                                                ),
+                                                const SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Text(
+                                                  /* snapshot
+                                                      .data!.data.tasks[0].name,*/
+                                                  // taskName[index],
+                                                  taskComplet[index].name,
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                )
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 15,
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 10),
+                                              child: Row(
+                                                children: <Widget>[
+                                                  const Icon(
+                                                    Icons.person_outline,
+                                                    size: 20,
+                                                    color: Colors.white,
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text(
+                                                    master[index],
+                                                    style: const TextStyle(
+                                                        color: Colors.white),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 10),
+                                              child: Row(
+                                                children: <Widget>[
+                                                  const Icon(
+                                                    Icons.date_range_outlined,
+                                                    size: 20,
+                                                    color: Colors.white,
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text(
+                                                    'Created at  ' +
+                                                        taskCreationDate[index],
+                                                    style: const TextStyle(
+                                                        color: Colors.white),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                      child: IconsButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        text: 'Ok',
-                                        iconData: Icons.done,
-                                        color: Color.fromRGBO(52, 130, 197, .6),
-                                        textStyle:
-                                            TextStyle(color: Colors.white),
-                                        iconColor: Colors.white,
-                                      ),
-                                    )
-                                  ]);
-                            },
-                            child: Container(
-                              //-------------------------------- List View Container------
-                              margin: const EdgeInsets.all(20),
-                              height: 130,
-                              width: 300,
-                              decoration: BoxDecoration(
-                                  color: Color(
-                                      0xff30384c), //const Color.fromRGBO(52, 130, 197, .8),
-                                  borderRadius: BorderRadius.circular(25),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(.4),
-                                      blurRadius: 20,
-                                      spreadRadius: 1,
                                     ),
-                                  ]),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
-                                child: Column(
-                                  children: <Widget>[
-                                    Row(
-                                      children: <Widget>[
-                                        const Icon(
-                                          Icons.alt_route_sharp,
-                                          color: Colors.white,
+                                  );
+                                });
+                          } else {
+                            return const Center(
+                                child: Padding(
+                              padding: EdgeInsets.only(top: 30),
+                              child: CircularProgressIndicator(),
+                            ));
+                          }
+                        }
+                        /*child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: taskName.length,
+                          itemBuilder: (BuildContext ctx, int index) {
+                            return InkWell(
+                              onTap: () {
+                                Dialogs.bottomMaterialDialog(
+                                    context: context,
+                                    msg:
+                                        'This task is to give the client the ability to see his project`s progress',
+                                    title: taskName[index],
+                                    actions: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 50,
                                         ),
-                                        const SizedBox(
-                                          width: 20,
+                                        child: IconsButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          text: 'Ok',
+                                          iconData: Icons.done,
+                                          color: Color.fromRGBO(52, 130, 197, .6),
+                                          textStyle:
+                                              TextStyle(color: Colors.white),
+                                          iconColor: Colors.white,
                                         ),
-                                        Text(
-                                          taskName[index],
-                                          style: const TextStyle(
+                                      )
+                                    ]);
+                              },
+                              child: Container(
+                                //-------------------------------- List View Container------
+                                margin: const EdgeInsets.all(20),
+                                height: 130,
+                                width: 300,
+                                decoration: BoxDecoration(
+                                    color: Color(
+                                        0xff30384c), //const Color.fromRGBO(52, 130, 197, .8),
+                                    borderRadius: BorderRadius.circular(25),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(.4),
+                                        blurRadius: 20,
+                                        spreadRadius: 1,
+                                      ),
+                                    ]),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Row(
+                                        children: <Widget>[
+                                          const Icon(
+                                            Icons.alt_route_sharp,
+                                            color: Colors.white,
+                                          ),
+                                          const SizedBox(
+                                            width: 20,
+                                          ),
+                                          Text(
+                                            taskName[index],
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold),
+                                          )
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 10),
+                                        child: Row(
+                                          children: <Widget>[
+                                            const Icon(
+                                              Icons.person_outline,
+                                              size: 20,
                                               color: Colors.white,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      child: Row(
-                                        children: <Widget>[
-                                          const Icon(
-                                            Icons.person_outline,
-                                            size: 20,
-                                            color: Colors.white,
-                                          ),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                            master[index],
-                                            style: const TextStyle(
-                                                color: Colors.white),
-                                          )
-                                        ],
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              master[index],
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      child: Row(
-                                        children: <Widget>[
-                                          const Icon(
-                                            Icons.date_range_outlined,
-                                            size: 20,
-                                            color: Colors.white,
-                                          ),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                            'Created at  ' +
-                                                taskCreationDate[index],
-                                            style: const TextStyle(
-                                                color: Colors.white),
-                                          )
-                                        ],
+                                      SizedBox(
+                                        height: 15,
                                       ),
-                                    ),
-                                  ],
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 10),
+                                        child: Row(
+                                          children: <Widget>[
+                                            const Icon(
+                                              Icons.date_range_outlined,
+                                              size: 20,
+                                              color: Colors.white,
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              'Created at  ' +
+                                                  taskCreationDate[index],
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        })
+                            );
+                          }),*/
+                        )
                   ],
                 ),
               ),

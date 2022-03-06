@@ -5,7 +5,7 @@ import 'Screens/DiscoverProjects.dart';
 import 'package:teamzone/Screens/Welcome.dart';
 import 'package:teamzone/Screens/IntroScreen.dart';
 
-void main() => runApp(const MaterialApp(
+void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Welcome(),
+      home: Dashboard(),
     ));
