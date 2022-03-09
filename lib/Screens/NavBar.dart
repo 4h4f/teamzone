@@ -1,8 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:teamzone/Screens/Welcome.dart';
 
 class NavBar extends StatefulWidget {
-  NavBar({Key? key}) : super(key: key);
+  final String? username;
+  final String? email;
+  NavBar({Key? key, @required this.username, @required this.email})
+      : super(key: key);
 
   @override
   _NavBarState createState() => _NavBarState();
@@ -16,8 +21,8 @@ class _NavBarState extends State<NavBar> {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text('Abdelrhman'),
-            accountEmail: Text('Abdoeltayeb10@gmail.com'),
+            accountName: Text(widget.username.toString()),
+            accountEmail: Text(widget.email.toString()),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
                 child: Image.asset('lib/assets/images/profile1.jpg'),

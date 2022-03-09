@@ -4,45 +4,69 @@ import 'dart:developer';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:teamzone/Models/ClientModel.dart';
 import 'package:teamzone/Models/ProjectModel.dart';
 import 'package:teamzone/Screens/DashboadWidgets/FieldTask.dart';
 import 'package:teamzone/Screens/NavBar.dart';
+import 'ClientDashboard/DoneStateClient.dart';
+import 'ClientDashboard/FieldTaskClient.dart';
+import 'ClientDashboard/OverallStateClient.dart';
 import 'DashboadWidgets/CurrentState.dart';
 import 'DashboadWidgets/DoneState.dart';
 import 'DashboadWidgets/OverallState.dart';
 import 'package:http/http.dart' as http;
+import 'ClientDashboard/CurrentStateClient.dart';
 
-Future<ProjectModel> getProjectInfo() async {
+Future<ClientProjcet> getProjectInfo(String username, String code) async {
   final response = await http.post(
-    Uri.parse('http://137.184.88.117/api/client/project'),
+    Uri.parse('http://137.184.88.117/api/users/client/login'),
     headers: <String, String>{
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     },
     body: jsonEncode(<String, String>{
-      'username': 'Trudie Walter', //Chadrick Friesen
-      'code': 'p1Mi1ipJ',
+      'username': username, //Chadrick Friesen
+      'code': code,
     }),
   );
   inspect(response);
   print(response.statusCode);
-  return projectFromJson(response.body);
+  return clientProjcetFromJson(response.body);
 }
 
-class Dashboard extends StatefulWidget {
+@override
+void initState() {}
+
+class ClientDashboard extends StatefulWidget {
+  final String? username;
+  final String? email;
   final String? code;
-  Dashboard({Key? key, @required this.code}) : super(key: key);
+  ClientDashboard(
+      {Key? key,
+      @required this.username,
+      @required this.email,
+      @required this.code})
+      : super(key: key);
 
   @override
   _DashboardState createState() => _DashboardState();
 }
 
-class _DashboardState extends State<Dashboard> {
+class _DashboardState extends State<ClientDashboard> {
   int index = 0;
   @override
   Widget build(BuildContext context) {
-    print(widget.code);
-    final screens = [OverallState(), CurrentState(), DoneState(), FiledTask()];
+    inspect(widget.username);
+    final screens = [
+      ClientOverallState(
+          username: widget.username.toString(), code: widget.code.toString()),
+      ClientCurrentState(
+          username: widget.username.toString(), code: widget.code.toString()),
+      ClientDoneState(
+          username: widget.username.toString(), code: widget.code.toString()),
+      ClientFiledTask(
+          username: widget.username.toString(), code: widget.code.toString())
+    ];
     final iconItems = <Widget>[
       const Icon(
         Icons.dashboard,
@@ -58,7 +82,7 @@ class _DashboardState extends State<Dashboard> {
       ),
     ];
     return Scaffold(
-      drawer: NavBar(),
+      drawer: NavBar(username: widget.username, email: widget.email),
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
@@ -98,35 +122,52 @@ class _DashboardState extends State<Dashboard> {
           ),
         ],
       ),
-      body: screens[index],
+      //screens[index],
+      body: FutureBuilder(
+          future: getProjectInfo(
+              widget.username.toString(), widget.code.toString()),
+          builder:
+              (BuildContext context, AsyncSnapshot<ClientProjcet> snapshot) {
+            if (snapshot.hasData) {
+              return screens[index];
+            } else {
+              return const Center(
+                child: Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+          }),
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: const IconThemeData(color: Colors.white),
         ),
         child: BottomNavyBar(
           selectedIndex: index,
           items: <BottomNavyBarItem>[
             BottomNavyBarItem(
-              icon: Icon(Icons.dashboard),
-              title: Text(
+              icon: const Icon(Icons.dashboard),
+              title: const Text(
                 'Status',
                 style: TextStyle(color: Colors.black),
               ),
               activeColor: Colors.lightBlue,
             ),
             BottomNavyBarItem(
-              icon: Icon(Icons.alt_route_sharp),
-              title: Text('In Progress', style: TextStyle(color: Colors.black)),
+              icon: const Icon(Icons.alt_route_sharp),
+              title: const Text('In Progress',
+                  style: TextStyle(color: Colors.black)),
               activeColor: Colors.amberAccent,
             ),
             BottomNavyBarItem(
-              icon: Icon(Icons.done_outline_rounded),
-              title: Text('Done', style: TextStyle(color: Colors.black)),
+              icon: const Icon(Icons.done_outline_rounded),
+              title: const Text('Done', style: TextStyle(color: Colors.black)),
               activeColor: Colors.lightGreen,
             ),
             BottomNavyBarItem(
-              icon: Icon(Icons.error_outline_sharp),
-              title: Text('Done', style: TextStyle(color: Colors.black)),
+              icon: const Icon(Icons.error_outline_sharp),
+              title: const Text('Done', style: TextStyle(color: Colors.black)),
               activeColor: Colors.redAccent,
             )
           ],

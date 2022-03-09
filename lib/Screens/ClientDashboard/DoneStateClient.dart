@@ -1,36 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
-import 'package:teamzone/Models/ProjectModel.dart';
+import 'package:teamzone/Models/ClientModel.dart';
+//import 'package:teamzone/Models/ProjectModel.dart';
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 
-Future<ProjectModel> getProjectInfo() async {
+Future<ClientProjcet> getProjectInfo(String username, String code) async {
   final response = await http.post(
-    Uri.parse('http://137.184.88.117/api/client/project'),
+    Uri.parse('http://137.184.88.117/api/users/client/login'),
     headers: <String, String>{
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     },
     body: jsonEncode(<String, String>{
-      'username': 'Trudie Walter', //Chadrick Friesen
-      'code': 'p1Mi1ipJ',
+      'username': username, //Chadrick Friesen
+      'code': code,
     }),
   );
   // inspect(response);
   print(response.statusCode);
-  return projectFromJson(response.body);
+  return clientProjcetFromJson(response.body);
 }
 
-class DoneState extends StatefulWidget {
-  DoneState({Key? key}) : super(key: key);
+class ClientDoneState extends StatefulWidget {
+  final String? username;
+  final String? code;
+  ClientDoneState({Key? key, @required this.username, @required this.code})
+      : super(key: key);
 
   @override
   _DoneStateState createState() => _DoneStateState();
 }
 
-class _DoneStateState extends State<DoneState> {
+class _DoneStateState extends State<ClientDoneState> {
   List<String> taskName = [
     "Authentication",
     "Chat Testing",
@@ -45,10 +49,15 @@ class _DoneStateState extends State<DoneState> {
   ];
   @override
   void initState() {
-    Future.delayed(Duration.zero, () async {
+    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+      taskComplet = await taskcomp();
+
+      setState(() {});
+    });
+    /*Future.delayed(Duration.zero, () async {
       //your async 'await' codes goes here
       taskComplet = await taskcomp();
-    });
+    });*/
     /*() async {
       taskComplet = await taskcomp();
     };*/
@@ -59,7 +68,8 @@ class _DoneStateState extends State<DoneState> {
   List<Task> taskComplet = [];
   Future<List<Task>> taskcomp() async {
     List<Task> temp = [];
-    ProjectModel pj = await getProjectInfo();
+    ClientProjcet pj = await getProjectInfo(
+        widget.username.toString(), widget.code.toString());
     for (int i = 0; i < pj.data.tasks.length; i++) {
       //temp.add(pj.data.tasks[i]);
       print(pj.data.tasks[i].status);
@@ -123,9 +133,10 @@ class _DoneStateState extends State<DoneState> {
                 child: Column(
                   children: <Widget>[
                     FutureBuilder(
-                        future: getProjectInfo(),
+                        future: getProjectInfo(
+                            widget.username.toString(), widget.code.toString()),
                         builder: (BuildContext context,
-                            AsyncSnapshot<ProjectModel> snapshot) {
+                            AsyncSnapshot<ClientProjcet> snapshot) {
                           if (snapshot.hasData) {
                             return ListView.builder(
                                 scrollDirection: Axis.vertical,
@@ -229,8 +240,8 @@ class _DoneStateState extends State<DoneState> {
                                                   ),
                                                   Text(
                                                     taskComplet[index]
-                                                        .teamMemberId
-                                                        .toString(),
+                                                        .master
+                                                        .name,
                                                     style: const TextStyle(
                                                         color: Colors.white),
                                                   )

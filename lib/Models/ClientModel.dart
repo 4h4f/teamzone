@@ -1,22 +1,22 @@
 // To parse this JSON data, do
 //
-//     final welcome = welcomeFromJson(jsonString);
+//     final clientProjcet = clientProjcetFromJson(jsonString);
 
 import 'dart:convert';
 
-ProjectModel projectFromJson(String str) =>
-    ProjectModel.fromJson(json.decode(str));
+ClientProjcet clientProjcetFromJson(String str) =>
+    ClientProjcet.fromJson(json.decode(str));
 
-String projectToJson(ProjectModel data) => json.encode(data.toJson());
+String clientProjcetToJson(ClientProjcet data) => json.encode(data.toJson());
 
-class ProjectModel {
-  ProjectModel({
+class ClientProjcet {
+  ClientProjcet({
     required this.data,
   });
 
   Data data;
 
-  factory ProjectModel.fromJson(Map<String, dynamic> json) => ProjectModel(
+  factory ClientProjcet.fromJson(Map<String, dynamic> json) => ClientProjcet(
         data: Data.fromJson(json["data"]),
       );
 
@@ -93,6 +93,7 @@ class Manager {
     required this.projectId,
     required this.createdAt,
     required this.updatedAt,
+    // required this.pivot,
   });
 
   int id;
@@ -104,6 +105,7 @@ class Manager {
   int? projectId;
   DateTime createdAt;
   DateTime updatedAt;
+  // Pivot pivot;
 
   factory Manager.fromJson(Map<String, dynamic> json) => Manager(
         id: json["id"],
@@ -115,6 +117,7 @@ class Manager {
         projectId: json["project_id"] == null ? null : json["project_id"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
+        // pivot: json["pivot"] == null ? null : Pivot.fromJson(json["pivot"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -127,38 +130,7 @@ class Manager {
         "project_id": projectId == null ? null : projectId,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
-      };
-}
-
-class Pivot {
-  Pivot({
-    required this.projectId,
-    required this.teamMemberId,
-    required this.role,
-    required this.createdAt,
-    required this.updatedAt,
-  });
-
-  int projectId;
-  int teamMemberId;
-  String role;
-  DateTime createdAt;
-  DateTime updatedAt;
-
-  factory Pivot.fromJson(Map<String, dynamic> json) => Pivot(
-        projectId: json["project_id"],
-        teamMemberId: json["team_member_id"],
-        role: json["role"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "project_id": projectId,
-        "team_member_id": teamMemberId,
-        "role": role,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        //"pivot": pivot == null ? null : pivot.toJson(),
       };
 }
 
@@ -201,8 +173,8 @@ class Task {
     required this.duration,
     required this.status,
     required this.description,
-    required this.projectId,
-    required this.teamMemberId,
+    required this.project,
+    required this.master,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -212,8 +184,8 @@ class Task {
   DateTime duration;
   String status;
   String description;
-  int? projectId;
-  int? teamMemberId;
+  Project project;
+  Manager master;
   DateTime createdAt;
   DateTime updatedAt;
 
@@ -223,8 +195,8 @@ class Task {
         duration: DateTime.parse(json["duration"]),
         status: json["status"],
         description: json["description"],
-        projectId: json["project_id"],
-        teamMemberId: json["team_member_id"],
+        project: Project.fromJson(json["project"]),
+        master: Manager.fromJson(json["master"]),
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
@@ -236,8 +208,56 @@ class Task {
             "${duration.year.toString().padLeft(4, '0')}-${duration.month.toString().padLeft(2, '0')}-${duration.day.toString().padLeft(2, '0')}",
         "status": status,
         "description": description,
-        "project_id": projectId,
-        "team_member_id": teamMemberId,
+        "project": project.toJson(),
+        "master": master.toJson(),
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+      };
+}
+
+class Project {
+  Project({
+    required this.id,
+    required this.name,
+    required this.deadline,
+    required this.code,
+    required this.clientId,
+    required this.rate,
+    required this.status,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  int id;
+  String name;
+  DateTime deadline;
+  String code;
+  int clientId;
+  int rate;
+  String status;
+  DateTime createdAt;
+  DateTime updatedAt;
+
+  factory Project.fromJson(Map<String, dynamic> json) => Project(
+        id: json["id"],
+        name: json["name"],
+        deadline: DateTime.parse(json["deadline"]),
+        code: json["code"],
+        clientId: json["client_id"],
+        rate: json["rate"],
+        status: json["status"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "deadline": deadline.toIso8601String(),
+        "code": code,
+        "client_id": clientId,
+        "rate": rate,
+        "status": status,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };

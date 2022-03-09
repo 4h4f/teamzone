@@ -1,54 +1,60 @@
 import 'package:flutter/material.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
-import 'package:teamzone/Models/ProjectModel.dart';
+import 'package:teamzone/Models/ClientModel.dart';
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 
-Future<ProjectModel> getProjectInfo() async {
+Future<ClientProjcet> getProjectInfo(String username, String code) async {
   final response = await http.post(
-    Uri.parse('http://137.184.88.117/api/client/project'),
+    Uri.parse('http://137.184.88.117/api/users/client/login'),
     headers: <String, String>{
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     },
     body: jsonEncode(<String, String>{
-      'username': 'Trudie Walter', //Chadrick Friesen
-      'code': 'p1Mi1ipJ',
+      'username': username, //Chadrick Friesen
+      'code': code,
     }),
   );
   // inspect(response);
-  print(response.statusCode);
-  return projectFromJson(response.body);
+  // print(response.statusCode);
+  return clientProjcetFromJson(response.body);
 }
 
-class DoneState extends StatefulWidget {
-  DoneState({Key? key}) : super(key: key);
+class ClientFiledTask extends StatefulWidget {
+  final String? username;
+  final String? code;
+  ClientFiledTask({Key? key, @required this.username, @required this.code})
+      : super(key: key);
 
   @override
-  _DoneStateState createState() => _DoneStateState();
+  _FiledTaskState createState() => _FiledTaskState();
 }
 
-class _DoneStateState extends State<DoneState> {
+class _FiledTaskState extends State<ClientFiledTask> {
   List<String> taskName = [
-    "Authentication",
-    "Chat Testing",
+    "Report Component",
   ];
   List<String> taskCreationDate = [
     "2/3/2021",
-    "16/7/2022",
   ];
   List<String> master = [
-    "Mostafa Ahmed",
-    "Mohammed Ibrahem",
+    "Mohammed Ali",
   ];
+//------------------------------------------------
   @override
   void initState() {
-    Future.delayed(Duration.zero, () async {
+    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+      taskComplet = await taskcomp();
+
+      setState(() {});
+    });
+    /* Future.delayed(Duration.zero, () async {
       //your async 'await' codes goes here
       taskComplet = await taskcomp();
-    });
+    });*/
     /*() async {
       taskComplet = await taskcomp();
     };*/
@@ -59,18 +65,20 @@ class _DoneStateState extends State<DoneState> {
   List<Task> taskComplet = [];
   Future<List<Task>> taskcomp() async {
     List<Task> temp = [];
-    ProjectModel pj = await getProjectInfo();
+    ClientProjcet pj = await getProjectInfo(
+        widget.username.toString(), widget.code.toString());
     for (int i = 0; i < pj.data.tasks.length; i++) {
       //temp.add(pj.data.tasks[i]);
-      print(pj.data.tasks[i].status);
-      if (pj.data.tasks[i].status == "Completed") {
-        print(pj.data.tasks[i].status == "Completed");
+      //print(pj.data.tasks[i].status);
+      if (pj.data.tasks[i].status == "failed") {
+        //print(pj.data.tasks[i].status == "Completed");
         temp.add(pj.data.tasks[i]);
       }
     }
     // inspect(temp);
     return temp;
   }
+  //------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -93,19 +101,19 @@ class _DoneStateState extends State<DoneState> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 40),
+                          vertical: 10, horizontal: 50),
                       child: Row(
                         children: const <Widget>[
                           Icon(
-                            Icons.done,
-                            color: Colors.lightGreen,
+                            Icons.error_outline_sharp,
+                            color: Colors.redAccent,
                             size: 40,
                           ),
                           SizedBox(
                             width: 20,
                           ),
                           Text(
-                            'Done Tasks',
+                            'Field Tasks',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 25.0,
@@ -123,9 +131,10 @@ class _DoneStateState extends State<DoneState> {
                 child: Column(
                   children: <Widget>[
                     FutureBuilder(
-                        future: getProjectInfo(),
+                        future: getProjectInfo(
+                            widget.username.toString(), widget.code.toString()),
                         builder: (BuildContext context,
-                            AsyncSnapshot<ProjectModel> snapshot) {
+                            AsyncSnapshot<ClientProjcet> snapshot) {
                           if (snapshot.hasData) {
                             return ListView.builder(
                                 scrollDirection: Axis.vertical,
@@ -229,8 +238,8 @@ class _DoneStateState extends State<DoneState> {
                                                   ),
                                                   Text(
                                                     taskComplet[index]
-                                                        .teamMemberId
-                                                        .toString(),
+                                                        .master
+                                                        .name,
                                                     style: const TextStyle(
                                                         color: Colors.white),
                                                   )
@@ -415,7 +424,3 @@ class _DoneStateState extends State<DoneState> {
     );
   }
 }
-
-
-
-//DoneState

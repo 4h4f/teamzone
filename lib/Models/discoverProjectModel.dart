@@ -1,32 +1,32 @@
 // To parse this JSON data, do
 //
-//     final welcome = welcomeFromJson(jsonString);
+//     final projects = projectsFromJson(jsonString);
 
 import 'dart:convert';
 
-ProjectModel projectFromJson(String str) =>
-    ProjectModel.fromJson(json.decode(str));
+Projects projectsFromJson(String str) => Projects.fromJson(json.decode(str));
 
-String projectToJson(ProjectModel data) => json.encode(data.toJson());
+String projectsToJson(Projects data) => json.encode(data.toJson());
 
-class ProjectModel {
-  ProjectModel({
+class Projects {
+  Projects({
     required this.data,
   });
 
-  Data data;
+  List<Projectdata> data;
 
-  factory ProjectModel.fromJson(Map<String, dynamic> json) => ProjectModel(
-        data: Data.fromJson(json["data"]),
+  factory Projects.fromJson(Map<String, dynamic> json) => Projects(
+        data: List<Projectdata>.from(
+            json["data"].map((x) => Projectdata.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "data": data.toJson(),
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
       };
 }
 
-class Data {
-  Data({
+class Projectdata {
+  Projectdata({
     required this.id,
     required this.name,
     required this.deadline,
@@ -36,7 +36,7 @@ class Data {
     required this.updatedAt,
     required this.owner,
     required this.staff,
-    required this.manager,
+    //required this.manager,
     required this.tasks,
   });
 
@@ -49,10 +49,10 @@ class Data {
   DateTime updatedAt;
   Owner owner;
   List<Manager> staff;
-  Manager manager;
+  //Manager manager;
   List<Task> tasks;
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory Projectdata.fromJson(Map<String, dynamic> json) => Projectdata(
         id: json["id"],
         name: json["name"],
         deadline: DateTime.parse(json["deadline"]),
@@ -63,7 +63,7 @@ class Data {
         owner: Owner.fromJson(json["owner"]),
         staff:
             List<Manager>.from(json["staff"].map((x) => Manager.fromJson(x))),
-        manager: Manager.fromJson(json["manager"]),
+        //manager: json["manager"] == null ? null : Manager.fromJson(json["manager"]),
         tasks: List<Task>.from(json["tasks"].map((x) => Task.fromJson(x))),
       );
 
@@ -77,7 +77,7 @@ class Data {
         "updated_at": updatedAt.toIso8601String(),
         "owner": owner.toJson(),
         "staff": List<dynamic>.from(staff.map((x) => x.toJson())),
-        "manager": manager.toJson(),
+        //"manager": manager == null ? null : manager.toJson(),
         "tasks": List<dynamic>.from(tasks.map((x) => x.toJson())),
       };
 }
@@ -90,7 +90,7 @@ class Manager {
     required this.password,
     required this.email,
     required this.type,
-    required this.projectId,
+    //required this.projectId,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -101,7 +101,7 @@ class Manager {
   String password;
   String email;
   String type;
-  int? projectId;
+  //int? projectId;
   DateTime createdAt;
   DateTime updatedAt;
 
@@ -112,7 +112,7 @@ class Manager {
         password: json["password"],
         email: json["email"],
         type: json["type"],
-        projectId: json["project_id"] == null ? null : json["project_id"],
+        //projectId: json["project_id"] == null ? null : json["project_id"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
@@ -124,39 +124,7 @@ class Manager {
         "password": password,
         "email": email,
         "type": type,
-        "project_id": projectId == null ? null : projectId,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-      };
-}
-
-class Pivot {
-  Pivot({
-    required this.projectId,
-    required this.teamMemberId,
-    required this.role,
-    required this.createdAt,
-    required this.updatedAt,
-  });
-
-  int projectId;
-  int teamMemberId;
-  String role;
-  DateTime createdAt;
-  DateTime updatedAt;
-
-  factory Pivot.fromJson(Map<String, dynamic> json) => Pivot(
-        projectId: json["project_id"],
-        teamMemberId: json["team_member_id"],
-        role: json["role"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "project_id": projectId,
-        "team_member_id": teamMemberId,
-        "role": role,
+        //"project_id": projectId == null ? null : projectId,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };
@@ -201,8 +169,8 @@ class Task {
     required this.duration,
     required this.status,
     required this.description,
-    required this.projectId,
-    required this.teamMemberId,
+    required this.project,
+    required this.master,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -212,8 +180,8 @@ class Task {
   DateTime duration;
   String status;
   String description;
-  int? projectId;
-  int? teamMemberId;
+  Project project;
+  Manager master;
   DateTime createdAt;
   DateTime updatedAt;
 
@@ -223,8 +191,8 @@ class Task {
         duration: DateTime.parse(json["duration"]),
         status: json["status"],
         description: json["description"],
-        projectId: json["project_id"],
-        teamMemberId: json["team_member_id"],
+        project: Project.fromJson(json["project"]),
+        master: Manager.fromJson(json["master"]),
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
@@ -236,8 +204,56 @@ class Task {
             "${duration.year.toString().padLeft(4, '0')}-${duration.month.toString().padLeft(2, '0')}-${duration.day.toString().padLeft(2, '0')}",
         "status": status,
         "description": description,
-        "project_id": projectId,
-        "team_member_id": teamMemberId,
+        "project": project.toJson(),
+        "master": master.toJson(),
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+      };
+}
+
+class Project {
+  Project({
+    required this.id,
+    required this.name,
+    required this.deadline,
+    required this.code,
+    required this.clientId,
+    required this.rate,
+    required this.status,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  int id;
+  String name;
+  DateTime deadline;
+  String code;
+  int clientId;
+  int rate;
+  String status;
+  DateTime createdAt;
+  DateTime updatedAt;
+
+  factory Project.fromJson(Map<String, dynamic> json) => Project(
+        id: json["id"],
+        name: json["name"],
+        deadline: DateTime.parse(json["deadline"]),
+        code: json["code"],
+        clientId: json["client_id"],
+        rate: json["rate"],
+        status: json["status"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "deadline": deadline.toIso8601String(),
+        "code": code,
+        "client_id": clientId,
+        "rate": rate,
+        "status": status,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };

@@ -1,7 +1,15 @@
+import 'dart:convert';
+
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:teamzone/Models/ClientModel.dart';
+import 'package:teamzone/Models/Message.dart';
+import 'package:teamzone/Models/UserModels.dart';
+import 'package:teamzone/Screens/ClientDashboard.dart';
 import 'package:teamzone/Screens/Dashboard.dart';
+import 'package:http/http.dart' as http;
 
 class Clientlogin extends StatefulWidget {
   const Clientlogin({Key? key}) : super(key: key);
@@ -9,6 +17,32 @@ class Clientlogin extends StatefulWidget {
   @override
   _ClientloginState createState() => _ClientloginState();
 }
+
+Future<http.Response> clientLogin(String username, String code) async {
+  final response = await http.post(
+    Uri.parse('http://137.184.88.117/api/users/client/login'),
+    headers: <String, String>{
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: jsonEncode(<String, String>{
+      'username': username, //Chadrick Friesen
+      'code': code,
+    }),
+  );
+  return response;
+}
+
+Future<ClientProjcet> userdata(http.Response rs) async {
+  return clientProjcetFromJson(rs.body);
+}
+
+Future<Message> messagedata(http.Response rs) async {
+  return messageFromJson(rs.body);
+}
+
+final usernameController = TextEditingController();
+final codeController = TextEditingController();
 
 class _ClientloginState extends State<Clientlogin> {
   @override
@@ -75,7 +109,8 @@ class _ClientloginState extends State<Clientlogin> {
                               border: Border(
                                   bottom:
                                       BorderSide(color: Colors.grey[200]!))),
-                          child: const TextField(
+                          child: TextField(
+                            controller: usernameController,
                             decoration: InputDecoration(
                               prefixIcon: Icon(Icons.people),
                               border: InputBorder.none,
@@ -87,7 +122,8 @@ class _ClientloginState extends State<Clientlogin> {
                         //----------------------------------
                         Container(
                           padding: const EdgeInsets.all(10),
-                          child: const TextField(
+                          child: TextField(
+                            controller: codeController,
                             decoration: InputDecoration(
                               prefixIcon: Icon(Icons.code),
                               border: InputBorder.none,
@@ -128,11 +164,44 @@ class _ClientloginState extends State<Clientlogin> {
                             fontWeight: FontWeight.w500,
                             fontSize: 16),
                       ),
-                      onPressed: () {
-                        Navigator.push(
+                      onPressed: () async {
+                        /*Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => Dashboard()),
-                        );
+                        );*/
+                        http.Response response = await clientLogin(
+                            usernameController.text, codeController.text);
+                        ClientProjcet us = await userdata(response);
+                        if (response.statusCode == 200) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ClientDashboard(
+                                    username: usernameController.text,
+                                    email: us.data.owner.email,
+                                    code: us.data.code)),
+                          );
+                        } else if (response.statusCode == 404) {
+                          //Message message = await messagedata(response);
+                          // ignore: avoid_single_cascade_in_expression_statements
+                          AwesomeDialog(
+                            context: context,
+                            animType: AnimType.TOPSLIDE,
+                            dialogType: DialogType.ERROR,
+                            body: const Center(
+                              child: Text(
+                                'User infromation not found',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            title: 'Login Error',
+                            desc: 'This is also Ignored',
+                            btnOkOnPress: () {},
+                          )..show();
+                        } else {
+                          print(response.body);
+                        }
                       },
                     ),
                   ),
