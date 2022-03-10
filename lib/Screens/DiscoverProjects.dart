@@ -196,7 +196,9 @@ class _DiscoverProjectsState extends State<DiscoverProjects> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => Dashboard(
-                                  code: snapshot.data!.data[index].code)),
+                                  code: snapshot.data!.data[index].code,
+                                  username: snapshot
+                                      .data!.data[index].owner.username)),
                         );
                       },
                       child: Container(

@@ -36,7 +36,7 @@ class Data {
     required this.updatedAt,
     required this.owner,
     required this.staff,
-    required this.manager,
+    //required this.manager,
     required this.tasks,
   });
 
@@ -49,7 +49,7 @@ class Data {
   DateTime updatedAt;
   Owner owner;
   List<Manager> staff;
-  Manager manager;
+  //Manager manager;
   List<Task> tasks;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -63,7 +63,7 @@ class Data {
         owner: Owner.fromJson(json["owner"]),
         staff:
             List<Manager>.from(json["staff"].map((x) => Manager.fromJson(x))),
-        manager: Manager.fromJson(json["manager"]),
+        // manager: Manager.fromJson(json["manager"]),
         tasks: List<Task>.from(json["tasks"].map((x) => Task.fromJson(x))),
       );
 
@@ -77,7 +77,7 @@ class Data {
         "updated_at": updatedAt.toIso8601String(),
         "owner": owner.toJson(),
         "staff": List<dynamic>.from(staff.map((x) => x.toJson())),
-        "manager": manager.toJson(),
+        // "manager": manager.toJson(),
         "tasks": List<dynamic>.from(tasks.map((x) => x.toJson())),
       };
 }

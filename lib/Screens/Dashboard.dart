@@ -31,7 +31,14 @@ Future<ProjectModel> getProjectInfo() async {
 
 class Dashboard extends StatefulWidget {
   final String? code;
-  Dashboard({Key? key, @required this.code}) : super(key: key);
+  final String? username;
+  final String? email;
+  Dashboard(
+      {Key? key,
+      @required this.code,
+      @required this.username,
+      @required this.email})
+      : super(key: key);
 
   @override
   _DashboardState createState() => _DashboardState();
@@ -41,8 +48,13 @@ class _DashboardState extends State<Dashboard> {
   int index = 0;
   @override
   Widget build(BuildContext context) {
-    print(widget.code);
-    final screens = [OverallState(), CurrentState(), DoneState(), FiledTask()];
+    //print(widget.code);
+    final screens = [
+      OverallState(code: widget.code, username: widget.username),
+      CurrentState(code: widget.code, username: widget.username),
+      DoneState(code: widget.code, username: widget.username),
+      FiledTask(code: widget.code, username: widget.username)
+    ];
     final iconItems = <Widget>[
       const Icon(
         Icons.dashboard,
@@ -58,7 +70,7 @@ class _DashboardState extends State<Dashboard> {
       ),
     ];
     return Scaffold(
-      drawer: NavBar(),
+      drawer: NavBar(username: widget.username),
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
